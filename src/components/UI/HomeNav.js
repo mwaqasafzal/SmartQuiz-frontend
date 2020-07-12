@@ -3,6 +3,7 @@ import {HomeNavItem} from'./HomeNavItem'
 
 export const HomeNav=props=>{
     return (
+        
         <div className="homenav">
            <ul className="left">
                <li><HomeNavItem to="home">Home</HomeNavItem></li>

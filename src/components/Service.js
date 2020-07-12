@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Service=props=>{
     return(
-        <div className="service">
+        <div className="service m-3">
             <div className="image">
                 <img src={props.image}/>    
             </div>
