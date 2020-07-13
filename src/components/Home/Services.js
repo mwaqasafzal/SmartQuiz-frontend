@@ -1,9 +1,9 @@
 import React from 'react';
 import {Col,Container,Row} from 'react-bootstrap'
-import students from '../assets/images/students.png'
-import stats from '../assets/images/stats.png'
-import createquiz from '../assets/images/createquiz.png'
-import takequiz from '../assets/images/takequiz.png'
+import students from '../../assets/images/students.png'
+import stats from '../../assets/images/stats.png'
+import createquiz from '../../assets/images/createquiz.png'
+import takequiz from '../../assets/images/takequiz.png'
 import {Service} from './Service'
 
 export const Services=props=>{
