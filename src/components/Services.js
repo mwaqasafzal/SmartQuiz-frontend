@@ -9,9 +9,8 @@ import {Service} from './Service'
 export const Services=props=>{
     
     return(
-        <div className="services" id="services">
-            <div className="tab">
-                <h2 className="title">Services</h2>
+        <div className="services mt-3" >
+                <h2 className="title" id="services">Services</h2>
                     <Container>
                             <Row >
                                 <Col sm={6}>
@@ -68,8 +67,6 @@ export const Services=props=>{
                         </Grid>
                     </Grid>
                  </div> */}
-            </div>
-            
         </div>
     );
 }

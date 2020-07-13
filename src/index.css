@@ -16,18 +16,16 @@ code {
 }
 header{
   height:80px;
-  background-color: #84a9ac;
   color:white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
+  z-index: 10;
   width: 100%;
   top:0;
 }
-.header-animated{
-  background-color: transparent;
-}
+
 main{
   height:calc(100vh - 100px)
 }
@@ -52,85 +50,47 @@ a{
   border-bottom: 2px solid white;
 }
 
-.homenav{
+.bg-homenav{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #84a9ac;
   width: 100%;
   font-size: 1rem;
 }
-.homenav .left{
-  display: flex;
-  list-style: none;
-}
-.homenav li{
-  padding:4px;
-}
-.login{
-  border:none;
-  padding:8px;
-  color:white;
-  font-size: 0.8rem;
-  background:transparent;
-  cursor: pointer;
-  outline: none;;
-}
-.signup{
-  border:none;
-  padding:0.8rem;
-  color: white;
-  font-size: 0.8rem;
-  cursor: pointer;
-  background-color: teal;
-}
-.toggler{
-  width:40px;
-  height:35px;
-  border-radius: 8px;
-  background-color: teal;
-  padding:6px;
-  cursor: pointer;
-  display: none;
-}
-.toggler:active{
-  background-color: rgb(53, 104, 104);
-}
-.toggler .line{
-  border:1px solid white;
-  margin:4px;
 
+.bg-navbar-animated{
+  background-color: transparent;
 }
+
 .cover{
   background-image:linear-gradient(to right,#92c6ca9d,#4b808585), url('./assets/images/cover.jpg');
   background-size:cover;
   background-position: center;
   height: 400px;
+  width: 100%;
   display: flex;
   flex-flow: column;
   color: white;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  text-align: center;
 }
 
-.getstarted-btn{
-
-  border:none;
-  padding:0.8rem;
-  background-color: teal;
-  color:white;
-  border-radius: 15px;
-  cursor: pointer;
-  outline:none;
-}
-.getstarted-btn:hover{
-  background-color: rgba(59, 155, 155, 0.993);
-}
 
 .cover{
   height:100vh;
 }
 
+.btn-outline-custom{
+  border:1px solid #0d8d99 !important;
+  color:#0d8d99 !important;
+}
+.btn-outline-custom:hover{
+  background-color: #0d8d99 !important;
+  color:white !important;
+}
 .tab{
   display: flex;
   flex-direction: column;
