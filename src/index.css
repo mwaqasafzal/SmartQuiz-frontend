@@ -149,7 +149,7 @@ a{
   z-index: 50;
   overflow: hidden;
 }
-.login{
+.form{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,7 +158,7 @@ a{
   height: 100vh;
   width: 100vw;
 }
-.login-form{
+.login-form,.signup-form{
   border:1px solid #0e181d57;
   background-color:#0d8d99;
   padding:1rem;

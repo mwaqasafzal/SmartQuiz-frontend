@@ -4,19 +4,35 @@ import {Services} from './Services'
 import {About} from './About'
 import {HomeNav} from './HomeNav'
 import {Login} from './Login'
-import {LoginContext} from '../../context/LoginContext'
+import {Signup} from './Signup'
+import {AuthContext} from '../../context/AuthContext'
 
 export const Home=props=>{
     const [showLogin,setShowLogin]=useState(false);
-
+    const [showSignup,setShowSignup]=useState(false);
     const showLoginHandler=()=>{
         setShowLogin(!showLogin);
     }
 
-console.log(LoginContext);
+    const showSignupHandler=()=>{
+        /*
+            pre conditions:
+            1-login form is already visible
+            therefore hiding it first
+            2-Singup form is visible(this function will be called 
+                to hide the signup)
+        */
+       if(showLogin)//if login form is already visible,will hide it first
+        showLoginHandler();
+       setShowSignup(!showSignup);
+    }
+    const showFormHandlers={
+        showLoginHandler,
+        showSignupHandler
+    }
 return (
   
-        <LoginContext.Provider value={showLoginHandler}>
+        <AuthContext.Provider value={showFormHandlers}>
             <header>
                 <HomeNav/>
             </header>
@@ -25,9 +41,11 @@ return (
                 <About/>
                 <Services/>
                 {showLogin?<Login />:null}
+                {showSignup?<Signup/>:null}
+                
             </main>
 
-        </LoginContext.Provider>
+        </AuthContext.Provider>
          
 );
 

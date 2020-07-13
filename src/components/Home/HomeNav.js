@@ -2,7 +2,7 @@ import React,{useEffect,useState, useContext} from 'react'
 import {Navbar,Nav} from 'react-bootstrap'
 import {Logo} from '../UI/Logo'
 import {Link,animateScroll as scroll} from 'react-scroll'
-import {LoginContext} from '../../context/LoginContext'
+import {AuthContext} from '../../context/AuthContext'
 export const HomeNav=props=>{
 
     const [isScrolled,setScrolled]=useState(false);
@@ -22,7 +22,7 @@ export const HomeNav=props=>{
     if(isScrolled)
         classname="homenav";
     
-    const showLoginHandler=useContext(LoginContext);
+    const {showLoginHandler}=useContext(AuthContext);
     return (
     <Navbar bg={classname} style={{transition:'0.5s ease'}} expand="lg">
         <Navbar.Brand onClick={()=>scroll.scrollToTop()}> <Logo/></Navbar.Brand>
