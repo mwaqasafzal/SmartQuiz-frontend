@@ -1,5 +1,6 @@
 {
   "name": "smartquiz",
+  "homepage": "http://smartquiz.ml/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

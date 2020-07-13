@@ -11,6 +11,7 @@ export const Login=props=>{
         e.preventDefault();
         showSignupHandler();
     }
+
     return (
         <div className="form">
             <Backdrop backdropCloseHandler={showLoginHandler}/>
@@ -42,7 +43,7 @@ export const Login=props=>{
                     type="submit"
                     disabled={email.length===0||password.length===0}
                     onClick={e=>e.preventDefault()}>
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i className="fas fa-sign-in-alt"></i> Login
                 </Button>
                 <span className="register"> 
                     Don't have account?

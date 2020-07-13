@@ -5,6 +5,7 @@ import {About} from './About'
 import {HomeNav} from './HomeNav'
 import {Login} from './Login'
 import {Signup} from './Signup'
+import {Contact} from './Contact'
 import {AuthContext} from '../../context/AuthContext'
 
 export const Home=props=>{
@@ -40,6 +41,7 @@ return (
                 <Cover/>
                 <About/>
                 <Services/>
+                <Contact/>
                 {showLogin?<Login />:null}
                 {showSignup?<Signup/>:null}
                 

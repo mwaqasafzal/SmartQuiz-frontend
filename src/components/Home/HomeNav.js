@@ -35,7 +35,7 @@ export const HomeNav=props=>{
                 <button 
                     className="login-btn"
                     onClick={showLoginHandler}
-                    ><i class="fas fa-sign-in-alt"></i> Login</button>
+                    ><i className="fas fa-sign-in-alt"></i> Login</button>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
