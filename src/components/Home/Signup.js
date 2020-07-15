@@ -62,7 +62,7 @@ export const Signup=props=>{
                     type="submit"
                     disabled={isDisabled}
                     onClick={signupHandler}>
-                    <i class="fas fa-user-plus"></i> Signup
+                    <i className="fas fa-user-plus"></i> Signup
                 </Button>
             </Form>
         </div>

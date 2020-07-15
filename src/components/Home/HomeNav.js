@@ -24,11 +24,14 @@ export const HomeNav=props=>{
     
     const {showLoginHandler}=useContext(AuthContext);
     return (
-    <Navbar bg={classname} style={{transition:'0.5s ease'}} expand="lg">
+    <Navbar  
+        bg={classname} 
+        style={{transition:'0.5s ease'}}
+        expand="lg">
         <Navbar.Brand onClick={()=>scroll.scrollToTop()}> <Logo/></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+        <Navbar.Toggle aria-controls="basic-navbar-nav"  />
+        <Navbar.Collapse id="basic-navbar-nav" >
+            <Nav className="mr-auto" >
                 <Link className="p-2" activeClass="active" to="about-us" smooth={true} duration={500}>About Us</Link>
                 <Link className="p-2" activeClass="active" to="services" smooth={true} duration={500}>Services</Link>
                 <Link className="p-2" activeClass="active" to="contact-us" smooth={true} duration={500}>Contact Us</Link>
