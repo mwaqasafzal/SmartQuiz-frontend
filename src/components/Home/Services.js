@@ -9,7 +9,14 @@ import {Service} from './Service'
 export const Services=props=>{
     
     return(
-        <Container id="services"className="services">
+        <Container 
+            id="services"
+            className="services"
+            data-aos="fade-up"
+            data-aos-offset="300"
+            data-aos-duration="800"
+            data-aos-easing="ease-in-out"
+            data-aos-once="false">
                 <Row>
                     <Col xs={12}>
                         <h2 className="title" >Services</h2>

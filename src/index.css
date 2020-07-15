@@ -5,8 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  margin: 0;
+  padding:0;
+
 }
 
 code {
@@ -19,9 +22,7 @@ code {
 header{
   height:80px;
   color:white;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   position: fixed;
   z-index: 10;
   width: 100%;
