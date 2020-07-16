@@ -43,6 +43,8 @@ const quizezCreated = [//who has attempted quiz will be fetched when user opens 
         id:"quiz3",
         name:"Tech Quiz",
         createdAt:"12 June 2020",
+        deadline:"30 June 2020",
+        duration: "1 hour",
         questions:[
             {
                 type:"mcq",    
@@ -56,6 +58,8 @@ const quizezCreated = [//who has attempted quiz will be fetched when user opens 
         id:"quiz4",
         name:"Gk Quiz",
         createdAt:"20 June 2020",
+        deadline:"30 June 2020",
+        duration: "1 hour",
         questions:[
             {
                 type:"blank",    

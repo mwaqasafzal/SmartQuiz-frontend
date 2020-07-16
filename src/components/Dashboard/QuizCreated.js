@@ -10,7 +10,8 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                     <tr>
                         <th>Name</th>
                         <th>Created at</th>
-                        <th>Stats</th>
+                        <th>Deadline</th>
+                        <th>duration</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,8 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                           quizId = {quiz.id}
                           name = {quiz.name}
                           createdAt = {quiz.createdAt}
+                          deadline = {quiz.deadline}
+                          duration = {quiz.duration}
                        />
                    ))}
                 </tbody>

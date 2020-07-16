@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const QuizDescription = ({quiz})=>{
-    console.log(quiz);
     return(
         <div className="quiz-description">
             Quiz Quiz Quiz
