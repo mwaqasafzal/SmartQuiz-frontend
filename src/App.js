@@ -1,14 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {Home} from './components/Home/Home'
-import AOS from 'aos'
+import Dashboard from './components/Dashboard/Dashboard'
+import {loadData} from './actions/shared'
+import {connect} from 'react-redux'
 
-function App() {
-  AOS.init();
+function App(props) {
+  const {dispatch} = props;
+
+  useEffect(()=>{
+    dispatch(loadData());
+  },[]);
+
   return (
     <div className="App">
-      <Home/>
+      <Dashboard/>
     </div>
   );
 }
 
-export default App;
+export default connect()(App);
