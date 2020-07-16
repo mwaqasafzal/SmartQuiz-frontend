@@ -25,7 +25,7 @@ export const Signup=props=>{
                 <h3 className="center">Signup</h3>
                 <hr/>
                 <Form.Group controlId="formBasicFullName">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Enter Full Name</Form.Label>
                     <Form.Control 
                         type="text" 
                         placeholder="Enter Full Name" 
