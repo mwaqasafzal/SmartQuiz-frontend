@@ -17,3 +17,9 @@ export const getQuizTakers=async(quizId)=>{
     const quizTakers = JSON.parse(res);
     return quizTakers;
 }
+
+export const getQuestionTypes = async()=>{
+    const res = await DataSever.getQuestionTypes();
+    const questionTypes = JSON.parse(res);
+    return questionTypes;
+}

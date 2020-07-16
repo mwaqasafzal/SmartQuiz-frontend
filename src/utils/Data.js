@@ -91,6 +91,8 @@ const users = [
     }
     
 ]
+const questionTypes = ['mcq','blank'];
+
 const scores = [
     {
         username:"talha",
@@ -130,6 +132,13 @@ export const getQuizezCreated=()=>{
     return new Promise((res,rej)=>{
         setTimeout(() => {
             res(JSON.stringify(quizezCreated));
+        }, 500);
+    })
+}
+export const getQuestionTypes=()=>{
+    return new Promise((res,rej)=>{
+        setTimeout(() => {
+            res(JSON.stringify(questionTypes));
         }, 500);
     })
 }

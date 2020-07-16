@@ -13,7 +13,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <Dashboard/>
+      Smart Quiz
     </div>
   );
 }
