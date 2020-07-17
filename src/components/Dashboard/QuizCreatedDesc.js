@@ -9,7 +9,7 @@ const QuizCreatedDesc = ({quizId,name,createdAt,deadline,duration,location})=>{
             <td>{name}</td>
             <td>{createdAt}</td>
             <td>{deadline}</td>
-            <td>{duration}</td>
+            <td>{duration.hrs} hrs {duration.mins} mins</td>
             <td className="see-stats"><Link to={`${path}/${quizId}`}> see stats</Link></td>
         </tr>
     );

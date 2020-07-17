@@ -1,4 +1,4 @@
-
+let quizCount = 0;
 const quizezTaken = [
         {   quizId:"quiz0",
             quizName:"Quiz One",
@@ -44,7 +44,10 @@ const quizezCreated = [//who has attempted quiz will be fetched when user opens 
         name:"Tech Quiz",
         createdAt:"12 June 2020",
         deadline:"30 June 2020",
-        duration: "1 hour",
+        duration: {
+            hrs:1,
+            mins:20
+        },
         questions:[
             {
                 type:"mcq",    
@@ -59,7 +62,10 @@ const quizezCreated = [//who has attempted quiz will be fetched when user opens 
         name:"Gk Quiz",
         createdAt:"20 June 2020",
         deadline:"30 June 2020",
-        duration: "1 hour",
+        duration: {
+            hrs:1,
+            mins:20
+        },
         questions:[
             {
                 type:"blank",    
@@ -149,7 +155,7 @@ export const getQuizTakers=(quizId)=>{
             
             const attendees = users.filter(user=>user.quizezTaken.includes(quizId));
             const quizAttendees = attendees.map(attendee=>{
-                const {attemptedAt,score} = scores.find(({username,quizId})=>username===attendee.username && quizId === quizId);
+                const {attemptedAt,score} = scores.find(score=>score.username===attendee.username && score.quizId === quizId);
 
                 return {
                     ...attendee,
@@ -161,4 +167,15 @@ export const getQuizTakers=(quizId)=>{
             res(JSON.stringify(quizAttendees));
         }, 2000);
     })
+}
+
+export const createQuiz=quiz=>{
+    const quizId = Date.now();
+    quiz.key = quizId;
+    quiz.id = ++quizCount;
+    quizezCreated.push(quiz);
+    return new Promise((res,rej)=>{
+
+        res(JSON.stringify(quiz));
+    },500);
 }

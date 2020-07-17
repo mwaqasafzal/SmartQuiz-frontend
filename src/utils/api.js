@@ -23,3 +23,9 @@ export const getQuestionTypes = async()=>{
     const questionTypes = JSON.parse(res);
     return questionTypes;
 }
+
+export const createQuiz = async(quiz)=>{
+    const res = await DataSever.createQuiz(quiz);
+    const updatedQuiz = JSON.parse(res);
+    return updatedQuiz;
+}
