@@ -1,4 +1,31 @@
 let quizCount = 0;
+const quizez = [
+    {
+        id:"quiz5",
+        key:"xyzq5",
+        name:"DSA Quiz",
+        createdAt:"20 June 2020",
+        deadline:"30 June 2020",
+        duration: {
+            hrs:0,
+            mins:2
+        },
+        questions:[
+            {
+                type:"blank",    
+                question:"Order of Stack?",
+                answer:"lifo"
+            },
+            {
+                type: "mcq",
+                question: "What is one is graph traversing algorithm?",
+                options: ["binary search","bankers algorithm","dijkestra algorithm","bubble sort"],
+                answer: "3"
+
+            }
+        ]
+    }
+]
 const quizezTaken = [
         {   quizId:"quiz0",
             quizName:"Quiz One",
@@ -178,4 +205,28 @@ export const createQuiz=quiz=>{
 
         res(JSON.stringify(quiz));
     },500);
+}
+
+export const getQuiz=key=>{
+    const quiz = quizez.find(quiz=>quiz.key === key);
+    return new Promise((res,rej)=>{
+        if(quiz){
+            quiz.createdBy = {
+                username : "testuser",
+                fullName : "Mr. Test",
+                email : "Test@test.com"
+            }
+            res(JSON.stringify(quiz));
+        }
+           
+        else
+            rej("not found")
+    },500);
+}
+
+export const takenQuiz = quizStats=>{
+    quizezTaken.push(quizStats);
+    return new Promise((res,rej)=>{
+        res('success:200');
+    })
 }

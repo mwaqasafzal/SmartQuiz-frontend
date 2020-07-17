@@ -29,3 +29,11 @@ export const createQuiz = async(quiz)=>{
     const updatedQuiz = JSON.parse(res);
     return updatedQuiz;
 }
+export const takenQuiz = async(quizStats)=>{
+    await DataSever.takenQuiz(quizStats);
+}
+export const getQuiz = async(key)=>{
+    const res = await DataSever.getQuiz(key);
+    const quiz = JSON.parse(res);
+    return quiz;
+}
