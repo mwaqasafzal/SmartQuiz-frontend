@@ -1,7 +1,9 @@
 import React,{useState,useEffect,useRef} from 'react'
 import Questions from './Questions'
+import Timer from './Timer'
 import {connect} from 'react-redux'
 import {takeNewQuizHandler} from '../../actions/quizezTaken'
+
 
 const Quiz=({quiz,dispatch})=>{
 
@@ -46,7 +48,9 @@ const Quiz=({quiz,dispatch})=>{
         content = (
             <React.Fragment>
                 <h1>{quiz.name}</h1>
-                {/*timer here*/}
+                <Timer 
+                    duration={duration}
+                    finishQuiz={finishQuiz}/>
                 <Questions
                     questions = {questions}
                     increaseScore = {increaseScore}

@@ -8,7 +8,7 @@ const quizez = [
         deadline:"30 June 2020",
         duration: {
             hrs:0,
-            mins:2
+            mins:1
         },
         questions:[
             {
