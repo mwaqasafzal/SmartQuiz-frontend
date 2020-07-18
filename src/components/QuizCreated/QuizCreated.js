@@ -1,20 +1,32 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Container,Row,Button,Col} from 'react-bootstrap'
 
-const quizCreated = ({key,history})=>{
+const quizCreated = ({quizKey,history})=>{
+    
     return(
-        <div className="quiz-created">
-            <h2>Quiz Created Successfully!</h2>
-            <h3>key:{key}</h3>
-            <button onClick={()=>{history.replace('/')}}>Done</button>
-        </div>
+        <Container style={{textAlign:'center'}}className="created-quiz">
+            <Row >
+                <Col><h2>Quiz Created Successfully!</h2></Col>
+            </Row>
+            <Row>
+                <Col><h3>key:{quizKey}</h3></Col>
+            </Row>
+            <Row>
+                <Col><Button style={{color:'white'}} onClick={()=>{history.replace('/')}}>Done</Button></Col>
+            </Row>
+            
+        </Container>
     );
 
 }
-const mapStateToProps = ({quizezCreated},{quizId})=>{
-    const quiz = quizCreated.find(quiz=>quiz.id===quizId);
+
+const mapStateToProps = ({quizezCreated},{match})=>{
+    const quizId=match.params.quizId*1;
+    const quiz = quizezCreated.find(quiz=>quiz.id===quizId);
+
     return {
-        key: quiz.key
+        quizKey: quiz.key
     }
     
 }

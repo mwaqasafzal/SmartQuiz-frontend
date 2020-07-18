@@ -3,16 +3,19 @@ import QuestionForm from './QuestionFrm'
 import {connect} from 'react-redux'
 import {createQuiz} from '../../utils/api'
 import {createNewQuiz} from '../../actions/quizezCreated'
+import {Container,Form,Button} from 'react-bootstrap'
 
-const CreateQuiz = ({match,authed,dispatch,history,push})=>{
-
-    const path = match?match.url:'/create-quiz'
+const CreateQuiz = ({match,authed,dispatch,history})=>{
 
     const [questions,setQuestions] = useState([]);
     const [duration,setDuration] = useState({hrs:0,mins:0});
+    const [invalidHrs,setInvalidHrs] = useState(false);
+    const [invalidMins,setInvalidMins] = useState(false);
     const [deadline,setDeadline] = useState("");
+    const [invalidDeadline,setInvalidDeadline] = useState(false);
     const [quizName,setQuizName] = useState("");
-    const [creating,setCreating] = useState(false);//creating the quiz or writing meta data
+    const [invalidName,setInvalidName] = useState(false);
+    const [creating,setCreating] = useState(true);//creating the quiz or writing meta data
     const [submitted,setSubmitted] = useState(false);
     const checkRef = useRef();
 
@@ -37,7 +40,8 @@ const CreateQuiz = ({match,authed,dispatch,history,push})=>{
                 //updating the store
                 dispatch(createNewQuiz(updatedQuiz));
                 console.log(updatedQuiz);
-                // history.replace(`/created-quiz/${updatedQuiz.id}`);
+                
+                history.replace(`/created-quiz/${updatedQuiz.id}`);
             })();
             
         }
@@ -56,8 +60,6 @@ const CreateQuiz = ({match,authed,dispatch,history,push})=>{
                                 //1- Save and Next  2- Save and Submit
         addQuestion(question);
         setSubmitted(true);
-        //createQuiz(quiz);
-
     }
 
     const createMeta = e=>{
@@ -66,24 +68,68 @@ const CreateQuiz = ({match,authed,dispatch,history,push})=>{
     }
 
     const quizNameHandler = name =>{
+        if(name.length===0)
+            setInvalidName(true);
+        else 
+            setInvalidName(false);
         setQuizName(name);
     }
 
     const durationHandler = (type,value)=>{
-        if(type === "hrs")
-            setDuration({...duration,hrs:value})
-        else
+        if(duration.hrs==0 && duration.Mins==0){
+            alert('invalid duration')
+            setInvalidHrs(true);
+            setInvalidMins(true);
+        }
+        else{
+            setInvalidHrs(false);
+            setInvalidMins(false);
+        }
+            
+        if(type === "hrs"){
+            if(value==0){
+                if(duration.mins==0){
+                    setInvalidMins(true);
+                    setInvalidHrs(true);
+                }    
+            }
+            setDuration({...duration,hrs:value});
+        }
+        else{
+            if(value==0)
+                if(duration.hrs==0){
+                    setInvalidMins(true);
+                    setInvalidHrs(true);
+                }
             setDuration({...duration,mins:value})
+        }
+           
     }
     
     const deadlineHandler = deadline=>{
+        const deadlineDate = new Date(deadline);
+        const today = new Date();
+        if(deadlineDate.getDate()<today.getDate())
+            setInvalidDeadline(true);
+        else
+            setInvalidDeadline(false);
         setDeadline(deadline);
     }
 
-   
+    const checkValidity=()=>{
+        if(invalidDeadline)
+            return false;
+        else if(quizName.length===0)
+            return false;
+        else if(duration.mins===0 && duration.hrs===0)
+            return false;
+        return true;
+    }
+
     let content = (
         <div className="create-quiz">
-             <h1>Create Quiz</h1>
+             <h2 className="title">Create Quiz</h2>
+            <h5 style={{textAlign:"center"}}>Question No {questions.length+1}</h5>
             <QuestionForm 
                 addQuestion = {addQuestion}
                 submitQuiz = {submitQuizHandler}/>
@@ -93,36 +139,57 @@ const CreateQuiz = ({match,authed,dispatch,history,push})=>{
     if(!creating)
         content = (
             <React.Fragment>
-                <div className="create-quiz-meta">
-                    <h2>Nature of Quiz</h2>
-                    <form onSubmit={createMeta}>
-                        <input
-                            type = "text"
-                            placeholder = "Enter Quiz Name"
-                            value = {quizName}
-                            onChange = {e=>quizNameHandler(e.target.value)}
-                        />
-                        <input 
-                            type = "text" 
-                            placeholder = "Enter Deadline"
-                            value = {deadline}
-                            onChange = {e=>deadlineHandler(e.target.value)}/>
-                        <label>Duration </label>
-                        <input 
-                            type = "number" 
-                            value = {duration.hrs} 
-                            min={0} 
-                            max={12}
-                            onChange = {e=>durationHandler('hrs',e.target.value)}/> Hrs &nbsp;
-                        <input 
-                            type = "number" 
-                            value = {duration.mins} 
-                            min={0} 
-                            max={59}
-                            onChange = {e=>durationHandler('mins',e.target.value)}/> Mins &nbsp;
-                        <input type = "submit" value = "Create Quiz"/>
-                    </form>
-                </div>
+                <h2 className="title">Nature of Quiz</h2>
+                <Container style={{maxWidth:"500px"}}fluid>
+                    <Form  onSubmit={createMeta}>
+                        <Form.Group controlId="formBasicQuizName">
+                            <Form.Label>Quiz Name</Form.Label>
+                            <Form.Control 
+                                className={invalidName?'invalid-input':null}
+                                type="text" 
+                                placeholder="Enter Quiz Name"
+                                value = {quizName}
+                                onChange = {e=>quizNameHandler(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicDeadline">
+                            <Form.Label>Deadline</Form.Label>
+                            <Form.Control 
+                                className={invalidDeadline?'invalid-input':null}
+                                type="date" 
+                                placeholder="Enter Deadline"
+                                value = {deadline}
+                                onChange = {e=>deadlineHandler(e.target.value)} />
+                        </Form.Group>
+                        <Form.Label>Duration</Form.Label>
+                        <Form.Row style={{flexFlow:"row"}}>
+                            <Form.Control 
+                                className={invalidHrs?'invalid-input':null}
+                                type="number" 
+                                value = {duration.hrs===0?"":duration.hrs} 
+                                placeholder="Hrs"  
+                                min={0} 
+                                max={12}
+                                onChange = {e=>durationHandler('hrs',e.target.value)}/> 
+                            <Form.Control 
+                                className={invalidMins?'invalid-input':null}
+                                type="number" 
+                                placeholder="Mins"
+                                value = {duration.mins===0?"":duration.mins}
+                                min={0} 
+                                max={59}
+                                onChange = {e=>durationHandler('mins',e.target.value)} /> 
+                          
+                        </Form.Row>
+                        <br/>
+
+                        <Button 
+                            type="submit" 
+                            style={{display:"block",width:"100%",backgroundColor:'#3b6978',border:'none'}}
+                            disabled={!checkValidity()}>
+                            Submit
+                        </Button>
+                    </Form>
+                </Container>
             </React.Fragment>
         );
 

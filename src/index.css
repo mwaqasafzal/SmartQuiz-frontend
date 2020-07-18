@@ -317,3 +317,25 @@ a{
   width:80%;
   background-color: white;
 }
+
+.invalid-input{
+  border-color:red !important;
+}
+
+.filter{
+  border:1px solid #204051;
+  padding:8px;
+  background-color:transparent;
+
+}
+
+.created-quiz{
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+}

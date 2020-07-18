@@ -1,12 +1,11 @@
 import React from 'react'
-import {connect} from 'react-redux'
-
 
 const filterQuestionTypes = ({selectedType,questionTypes,changeQuestionType})=>{
 
     return(
         <div className="filter-question-type">
             <select 
+                className="filter"
                 onChange={e=>changeQuestionType(e.target.value)}
                 defaultValue={selectedType}>
                 {questionTypes.map(type=>(
@@ -18,9 +17,5 @@ const filterQuestionTypes = ({selectedType,questionTypes,changeQuestionType})=>{
         </div>
     );
 }
-
-
-
-
 
 export default filterQuestionTypes;
