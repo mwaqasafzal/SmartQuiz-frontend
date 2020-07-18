@@ -80,7 +80,7 @@ const quizezCreated = [//who has attempted quiz will be fetched when user opens 
                 type:"mcq",    
                 question:"Ubuntu is distro of?",
                 options:["linux","windows","mac"],
-                correct:1
+                answer:1
             }
         ]
     },

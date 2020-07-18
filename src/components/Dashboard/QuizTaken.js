@@ -1,11 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import QuizTakenDesc from './QuizTakenDesc'
-
+import {Container,Row,Col,Table} from 'react-bootstrap'
 const QuizTaken=({quizezTaken})=>{
+    
     return(
-        <div className="quiz-taken">
-                <table>
+        <div className="quiz-taken">   
+                <h2 className="title">Quizzes Taken</h2>
+                <Table responsive>
                     <thead>
                         <tr>
                             <th>Quiz Name</th>
@@ -29,7 +31,7 @@ const QuizTaken=({quizezTaken})=>{
                         }
                         
                     </tbody>
-                </table>
+                </Table>               
         </div>
     );
 }

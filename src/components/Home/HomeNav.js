@@ -1,6 +1,6 @@
 import React,{useEffect,useState, useContext} from 'react'
 import {Navbar,Nav} from 'react-bootstrap'
-import {Logo} from '../UI/Logo'
+import Logo from '../UI/Logo'
 import {Link,animateScroll as scroll} from 'react-scroll'
 import {AuthContext} from '../../context/AuthContext'
 export const HomeNav=props=>{

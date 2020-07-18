@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,8 +20,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-*{
-  box-sizing: border-box;
+
+.custom-loader{
+  background-color:rgba(0, 0, 0, 0.116);
+  height:100vh;
+  width:100vw;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:fixed;
+  top:0;
+  z-index:20
 }
 header{
   height:80px;
@@ -29,9 +42,9 @@ header{
   top:0;
 }
 
-main{
+/* main{
   height:calc(100vh - 100px)
-}
+} */
 
 
 .logo{
@@ -40,17 +53,58 @@ main{
   padding-left: 10px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color:#e4e3e3;
   cursor: pointer;
 }
-
+.side-drawer{
+  background-color: white;
+  color: white;
+}
+.toggle-btn{
+  background-color: transparent;
+  width: 30px;
+  padding: 4px;
+  position: absolute;
+  cursor: pointer;
+}
+.toggle-btn:hover{
+  background-color:#0b243163;
+}
+.toggle-btn .pipe{
+  border:1px solid white;
+  margin:3px;
+}
+.side-drawer ul{
+  list-style: none;
+  margin: 0;
+}
+.side-drawer .board{
+  height:100vh;
+}
+.closed-drawer{
+  display: none;
+}
+.opened-drawer{
+  display: block;
+}
+.board{
+  position: fixed;
+  padding:0.8rem;
+  top:0;
+  left:0;
+  height:100vh;
+  background-color:white;
+  width:70%;
+  max-width: 300px;
+  z-index:80
+}
 a{
   text-decoration: none;
   cursor: pointer;
 }
 
 .active{
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #e4e3e3;
 }
 
 .bg-homenav{
@@ -76,6 +130,12 @@ a{
   text-align: left;
   padding:0.5rem;
 }
+
+.bg-navbar{
+  background-color: #204051;
+  z-index: 5;
+}
+
 .cover{
   background-image:linear-gradient(to right,#92c6ca9d,#4b808585), url('./assets/images/cover.jpg');
   background-size:cover;
@@ -103,6 +163,9 @@ a{
 
 .title{
   display: inline-block;
+  width: 100%;
+  color:"#204051";
+  text-align: center;
   padding-bottom: 0.5rem;
   margin-bottom: 2rem;
   border-bottom: 2px solid #84a9ac;
@@ -187,4 +250,70 @@ a{
   border:none;
   text-decoration: underline;
   
+}
+.dashboard{
+  height:calc(100vh - 62px);
+}
+.stats{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height:95%;
+}
+
+.quiz-taken{
+  padding:8px;
+  height:95%;
+}
+
+.quiz-taken .content{
+  padding:15px;
+}
+.quiz-created{
+  padding:8px;
+  height:95%;
+}
+.quiz-stats{
+  height: 95%;
+  padding:8px;
+}
+
+.quiz-description{
+  background-color: white;
+  height:100vh;
+  width:100vw;
+  position: fixed;
+  top:0;
+  z-index:10;
+}
+
+.back-btn{
+  width:30px;
+  height:30px;
+  cursor: pointer;
+}
+
+.back-btn img{
+  display:block;
+  height: 100%;
+  width: 100%;
+}
+
+.quiz-description .header{
+  display: flex;
+
+}
+
+.questions{
+  background-color:#e4e3e3;
+  padding:16px;
+  height:500px;
+  margin:20px;
+  overflow: auto;
+}
+.question{
+  padding:8px;
+  width:80%;
+  background-color: white;
 }

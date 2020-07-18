@@ -8,11 +8,11 @@ import {connect} from 'react-redux'
             <table>
                 <tbody>
                     <tr>
-                        <td>Quizez Taken</td>
+                        <td>Quizzes Taken</td>
                         <td>{quizezTakenCount}</td>
                     </tr>
                     <tr>
-                        <td>Quizez Created</td>
+                        <td>Quizzes Created</td>
                         <td>{quizezCreatedCount}</td>
                     </tr>
                 </tbody>

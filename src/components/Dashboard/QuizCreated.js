@@ -1,11 +1,12 @@
 import React from 'react'
 import QuizCreatedDesc from './QuizCreatedDesc'
 import {connect} from 'react-redux'
-
+import {Container,Row,Col,Table} from 'react-bootstrap'
 const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
     return(
         <div className="quiz-created">
-            <table>
+            <h2 className="title">Quizzes Created</h2>
+            <Table responsive>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -28,7 +29,7 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                 </tbody>
                     
                    
-            </table>
+            </Table>
         </div>
     );
 }
