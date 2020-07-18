@@ -3,7 +3,7 @@ import Questions from './Questions'
 import Timer from './Timer'
 import {connect} from 'react-redux'
 import {takeNewQuizHandler} from '../../actions/quizezTaken'
-
+import {Container} from 'react-bootstrap'
 
 const Quiz=({quiz,dispatch})=>{
 
@@ -40,14 +40,18 @@ const Quiz=({quiz,dispatch})=>{
     if(quizCompleted)
         content = (
             <React.Fragment>
-                <h2>{quiz.name}</h2>
-                <h3>Score: {score}/{quiz.questions.length}</h3>
+                <h2 className="title">Result</h2>
+                <div style={{textAlign:'center'}}>
+                    <h3>{quiz.name}</h3>
+                    <h4>Score: {score}/{quiz.questions.length}</h4>
+                </div>
+                
             </React.Fragment>
         );
     else
         content = (
             <React.Fragment>
-                <h1>{quiz.name}</h1>
+                <h2 className="title">{quiz.name}</h2>
                 <Timer 
                     duration={duration}
                     finishQuiz={finishQuiz}/>
@@ -61,9 +65,9 @@ const Quiz=({quiz,dispatch})=>{
           
         );
     return(
-        <div className = "quiz">
+        <Container style={{width:'80%'}}>
            {content}
-        </div>
+        </Container>
     );
 }
 

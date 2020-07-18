@@ -13,12 +13,16 @@ const Timer=({duration,finishQuiz})=>{
     const {hrs,mins} = duration;
 
     const [seconds,setSeconds] = useState(hrs*3600+mins*60);
+    let timerT;
     useEffect(()=>{
         decCounter(seconds);
+        return ()=>{
+            clearTimeout(timerT);
+        }
     },[]);
 
     const decCounter=(seconds)=>{
-        setTimeout(()=>{
+        timerT = setTimeout(()=>{
             if(seconds===0)
                 finishQuiz(true);
             else{
@@ -31,7 +35,7 @@ const Timer=({duration,finishQuiz})=>{
     
     return(
         <div className="timer">
-            {getTimefromSeconds(seconds)}
+            <b>{getTimefromSeconds(seconds)}</b>
         </div>
     )
 

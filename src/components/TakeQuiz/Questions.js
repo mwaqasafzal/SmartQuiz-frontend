@@ -34,16 +34,17 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
         const {question,options} = _question;
         
         questionContent = (
-            <div className = "question">
-                <h4>{question}</h4>
+            <div className = "quiz-question">
+                <h4>{questionNo+1}. {question}</h4>
                 <div className = "options">
                     {options.map((option,ind)=>(
                         <React.Fragment  key= {ind}>
                              <input 
                                 type="radio"
                                 value = {ind+1}
-                                onChange = {e=>answerChangeHandler(e.target.value)}/>
+                                onChange = {e=>answerChangeHandler(e.target.value)}/> &nbsp;
                                 { option} 
+                                <br/>
                         </React.Fragment>
                        
                         
@@ -56,24 +57,21 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
     else if(_question.type === "blank"){
         const {question} = _question;
         questionContent = (
-            <div className = "question">
-                <h4>{question}</h4>
+            <div className = "quiz-question">
+                <h4>{questionNo+1}. {question}</h4>
                 <input 
                     type = "text" 
                     placeholder = "Enter your answer"
                     value = {answer}
                     onChange = {e=>answerChangeHandler(e.target.value)}
                     />
+                    <br/><br/>
                 <button onClick={submitAnswer}>Submit</button>
             </div>
         );
     }
         
-    return(
-        <div className = "questions">
-            {questionContent}
-        </div>
-    );
+    return questionContent;
 }
 
 export default Questions;
