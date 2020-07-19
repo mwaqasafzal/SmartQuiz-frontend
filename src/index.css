@@ -384,3 +384,19 @@ a{
   padding:5px;
   width:100px;
 }
+.icon{
+    display: inline-block;
+    width:30px;
+    height:30px
+}
+
+.icon img{
+    display:block;
+    height:100%;
+    width:100%;
+    padding:2px;
+  }
+
+  .side-drawer .nav-item{
+    font-size:1.2rem;
+  }

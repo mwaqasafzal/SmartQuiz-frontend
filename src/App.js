@@ -27,7 +27,7 @@ function App(props) {
           <Route path="/create-quiz" exact component={CreateQuiz}/>
           <Route path="/take-quiz" exact component={TakeQuiz}/>
         </Switch> */}
-      <TakeQuiz/>
+      <Dashboard/>
      </div>
       
     </div>
