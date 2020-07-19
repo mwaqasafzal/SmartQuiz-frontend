@@ -1,28 +1,48 @@
 import React from 'react'
-import {Switch,Route} from 'react-router-dom'
 import Sidedrawer from '../UI/Sidedrawer'
-import QuizTaken from './QuizTaken'
-import QuizCreated from './QuizCreated'
-import QuizDescription from './QuizDescription'
-import QuizStats from './QuizStats'
 import TakeQuizIcon from '../../icons/take-quiz.png'
 import CreateQuizIcon from '../../icons/create-quiz.png'
+import StatCard from '../Dashboard/StatCard'
+import {Container,Row,Col} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+export default function Dashboard({match,history}){
 
-export default function Dashboard(props){
-    const path=props.history?props.location.pathname:"/dashboard";
-    const options = [
-        {to:`${path}/quizez-taken`,name:"Quizzes Taken",icon:TakeQuizIcon},
-        {to:`${path}/quizez-created`,name:"Quizzes Created",icon:CreateQuizIcon}
-    ];
+    const {path}=match;
+    const changePath=to=>{
+        history.push(to);
+    }
+  
     return (
         <div className="dashboard">
-            <Sidedrawer options = {options} style={{height:"5%"}}type="Analytics"/>
-            <Switch>
-                <Route path={`${path}/quizez-taken`} component={QuizTaken}/>
-                <Route path={`${path}/quizez-created`} exact component={QuizCreated}/>
-                <Route path={`${path}/quizez-created/:quizId`} exact component={QuizStats}/>
-                <Route path={`${path}/quizez-created/:quizId/fullquiz`} component={QuizDescription}/>
-            </Switch>
+            <h2 className="title">Dashboard</h2>
+            <div className="content">
+                <Container className="cards" fluid>
+                    <Row>
+                        <Col>
+                            <h2 className="title">Statistics</h2>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={6}>   
+                            <StatCard 
+                                title='Quizzes Created'
+                                text='See All Quizzez You have Created and Who Attempted them until now'
+                                className="m-2"
+                                clickHandler={()=>changePath(`${path}/quizzes-taken`)}/>               
+                        </Col>
+                        <Col sm={6}>
+                            <StatCard 
+                                title='Quizzes Taken'
+                                text='See All Details Quizzez You have Taken until now'
+                                className="m-2"
+                                clickHandler={()=>changePath(`${path}/quizzes-created`)}/>
+       
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+            
         </div>
+      
     );
 }

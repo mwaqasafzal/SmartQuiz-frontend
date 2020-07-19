@@ -39,18 +39,18 @@ const Quiz=({quiz,dispatch})=>{
     let content;
     if(quizCompleted)
         content = (
-            <React.Fragment>
+            <div className="taking-quiz">
                 <h2 className="title">Result</h2>
                 <div style={{textAlign:'center'}}>
                     <h3>{quiz.name}</h3>
                     <h4>Score: {score}/{quiz.questions.length}</h4>
                 </div>
                 
-            </React.Fragment>
+            </div>
         );
     else
         content = (
-            <React.Fragment>
+            <div className="taking-quiz">
                 <h2 className="title">{quiz.name}</h2>
                 <Timer 
                     duration={duration}
@@ -61,7 +61,7 @@ const Quiz=({quiz,dispatch})=>{
                     finishQuiz = {finishQuiz}
                 />
 
-            </React.Fragment>
+            </div>
           
         );
     return(

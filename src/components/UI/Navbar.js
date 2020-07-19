@@ -1,19 +1,19 @@
 import React from 'react'
 import Logo from './Logo'
 import {Navbar,Nav} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 const Navigationbar = ()=>{   
 
     return(
         <Navbar bg="navbar" expand="lg">
-            <Navbar.Brand href="#home"><Logo/></Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Brand><Logo/></Navbar.Brand>
+            <Navbar.Toggle  aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                        <Link className="p-2" activeClass="active" to="/dashboard">Dashboard</Link>
-                        <Link className="p-2" activeClass="active" to="/create-quiz">Create Quiz</Link>
-                        <Link className="p-2" activeClass="active" to="/take-quiz">Take Quiz</Link>
+                        <NavLink className="p-2 nv-link" activeClassName="active" to="/dashboard">Dashboard</NavLink>
+                        <NavLink className="p-2 nv-link" activeClassName="active" to="/create-quiz">Create Quiz</NavLink>
+                        <NavLink className="p-2 nv-link" activeClassName="active" to="/take-quiz">Take Quiz</NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

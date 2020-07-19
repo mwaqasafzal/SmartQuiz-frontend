@@ -38,7 +38,7 @@ const QuizStats = ({match,quiz})=>{
                     <br/>
                     <div className="complete-stats">
                         <Table responsive>
-                            <thead>
+                            <thead style={{backgroundColor:'#204051',color:'#e4e3e3'}}>
                                 <tr>
                                     <th>Attendee</th>
                                     <th>Date/Time</th>

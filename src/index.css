@@ -56,6 +56,41 @@ header{
   color:#e4e3e3;
   cursor: pointer;
 }
+
+.quizzes-taken,
+.create-quiz,
+.quiz-nature,
+.take-quiz,
+.taking-quiz,
+.quizzes-created,
+.dashboard{
+  padding-top:62px
+}
+
+.dashboard{
+  height:100vh
+}
+
+.dashboard .content{
+   height: 500px;
+    display: flex;
+    align-items: center;
+  
+}
+.content .cards{
+  background-color: #204051;
+  padding:25px 50px;
+}
+.cards .title{
+  color:#e4e3e3;
+  border:none;
+}
+.stat-card{
+  text-align:center;
+  cursor:pointer;
+  height:200px;
+}
+
 .side-drawer{
   background-color: white;
   color: white;
@@ -67,9 +102,8 @@ header{
   position: absolute;
   cursor: pointer;
 }
-.toggle-btn:hover{
-  background-color:#0b243163;
-}
+
+
 .toggle-btn .pipe{
   border:1px solid white;
   margin:3px;
@@ -98,15 +132,9 @@ header{
   max-width: 300px;
   z-index:80
 }
-a{
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .active{
-  border-bottom: 2px solid #e4e3e3;
+  color:#84a9ac !important;
 }
-
 .bg-homenav{
   display: flex;
   align-items: center;
@@ -132,8 +160,11 @@ a{
 }
 
 .bg-navbar{
+  position: fixed !important;
+  top:0;
+  width:100%;
   background-color: #204051;
-  z-index: 5;
+  
 }
 
 .cover{
@@ -232,6 +263,7 @@ a{
 
 .center{
   text-align: center;
+  color:#204051;
 }
 .login-button{
   width:100%;
@@ -251,9 +283,7 @@ a{
   text-decoration: underline;
   
 }
-.dashboard{
-  height:calc(100vh - 62px);
-}
+
 .stats{
   display: flex;
   flex-direction: column;
@@ -262,18 +292,6 @@ a{
   height:95%;
 }
 
-.quiz-taken{
-  padding:8px;
-  height:95%;
-}
-
-.quiz-taken .content{
-  padding:15px;
-}
-.quiz-created{
-  padding:8px;
-  height:95%;
-}
 .quiz-stats{
   height: 95%;
   padding:8px;
@@ -338,11 +356,14 @@ a{
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 5;
+  background-color:white;
 }
+
+
 
 .take-quiz{
   height:100vh;
-  position: absolute;
   top:0;
   display: flex;
   align-items: center;
@@ -400,3 +421,14 @@ a{
   .side-drawer .nav-item{
     font-size:1.2rem;
   }
+
+  .nv-link{
+    color:white;
+  }
+
+  .nv-link:hover{
+    color:white;
+    text-decoration: none;
+  }
+ 
+

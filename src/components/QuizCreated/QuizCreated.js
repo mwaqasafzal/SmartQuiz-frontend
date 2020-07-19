@@ -5,7 +5,7 @@ import {Container,Row,Button,Col} from 'react-bootstrap'
 const quizCreated = ({quizKey,history})=>{
     
     return(
-        <Container style={{textAlign:'center'}}className="created-quiz">
+        <Container style={{textAlign:'center'}}className="created-quiz" fluid>
             <Row >
                 <Col><h2>Quiz Created Successfully!</h2></Col>
             </Row>
@@ -22,6 +22,7 @@ const quizCreated = ({quizKey,history})=>{
 }
 
 const mapStateToProps = ({quizezCreated},{match})=>{
+  
     const quizId=match.params.quizId*1;
     const quiz = quizezCreated.find(quiz=>quiz.id===quizId);
 

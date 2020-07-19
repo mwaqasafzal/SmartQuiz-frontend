@@ -15,7 +15,7 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
     const [invalidDeadline,setInvalidDeadline] = useState(false);
     const [quizName,setQuizName] = useState("");
     const [invalidName,setInvalidName] = useState(false);
-    const [creating,setCreating] = useState(true);//creating the quiz or writing meta data
+    const [creating,setCreating] = useState(false);//creating the quiz or writing meta data
     const [submitted,setSubmitted] = useState(false);
     const checkRef = useRef();
 
@@ -138,7 +138,7 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
     
     if(!creating)
         content = (
-            <React.Fragment>
+            <div className="quiz-nature">
                 <h2 className="title">Nature of Quiz</h2>
                 <Container style={{maxWidth:"500px"}}fluid>
                     <Form  onSubmit={createMeta}>
@@ -190,7 +190,7 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
                         </Button>
                     </Form>
                 </Container>
-            </React.Fragment>
+            </div>
         );
 
     return content;

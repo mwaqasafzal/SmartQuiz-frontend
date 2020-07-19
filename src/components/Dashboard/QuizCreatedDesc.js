@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link,withRouter} from 'react-router-dom'
 
-const QuizCreatedDesc = ({quizId,name,createdAt,deadline,duration,location})=>{
+const QuizCreatedDesc = ({quizNo,quizId,name,createdAt,deadline,duration,location})=>{
     const path = location.pathname;
     
     return(
         <tr>
+            <td>{quizNo}</td>
             <td>{name}</td>
             <td>{createdAt}</td>
             <td>{deadline}</td>

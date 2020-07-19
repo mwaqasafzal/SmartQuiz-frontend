@@ -36,7 +36,7 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
         questionContent = (
             <div className = "quiz-question">
                 <h4>{questionNo+1}. {question}</h4>
-                <div className = "options">
+                <div className = "options" style={{marginLeft:'20px'}}>
                     {options.map((option,ind)=>(
                         <React.Fragment  key= {ind}>
                              <input 
@@ -46,9 +46,6 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
                                 { option} 
                                 <br/>
                         </React.Fragment>
-                       
-                        
-                      
                     ))}
                 </div>
                 <button onClick={submitAnswer}>Submit</button>
@@ -61,9 +58,10 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
                 <h4>{questionNo+1}. {question}</h4>
                 <input 
                     type = "text" 
-                    placeholder = "Enter your answer"
+                    placeholder = "Your Answer"
                     value = {answer}
                     onChange = {e=>answerChangeHandler(e.target.value)}
+                    style={{margin:'10px 20px',fontSize:'1.2rem',letterSpacing:'1px'}}
                     />
                     <br/><br/>
                 <button onClick={submitAnswer}>Submit</button>

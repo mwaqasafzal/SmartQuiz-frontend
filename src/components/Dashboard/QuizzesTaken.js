@@ -5,21 +5,23 @@ import {Container,Row,Col,Table} from 'react-bootstrap'
 const QuizTaken=({quizezTaken})=>{
     
     return(
-        <div className="quiz-taken">   
+        <div className="quizzes-taken">   
                 <h2 className="title">Quizzes Taken</h2>
-                <Table responsive>
-                    <thead>
+                <Table responsive hover>
+                    <thead style={{backgroundColor:'#204051',color:'#e4e3e3'}}>
                         <tr>
+                            <th>Sr.</th>
                             <th>Quiz Name</th>
                             <th>Created By</th>
-                            <th>Attempted at</th>
+                            <th>Attempted At</th>
                             <th>Score</th>                            
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            quizezTaken.map(quiz=>(
+                            quizezTaken.map((quiz,ind)=>(
                                 <QuizTakenDesc
+                                    quizNo = {ind+1}
                                     key = {quiz.quizId}
                                     quiz = {quiz.quizName}
                                     creator = {quiz.createdBy.fullName}
