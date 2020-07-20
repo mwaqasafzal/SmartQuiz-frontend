@@ -12,6 +12,9 @@ export const Login=props=>{
         showSignupHandler();
     }
 
+    const loginHandler=e=>{
+        e.preventDefault();
+    }
     return (
         <div className="form">
             <Backdrop backdropCloseHandler={showLoginHandler}/>
@@ -19,7 +22,7 @@ export const Login=props=>{
                 <h3 className="center">Login</h3>
                 <hr/>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Email Address</Form.Label>
                     <Form.Control 
                         type="email" 
                         placeholder="Enter email" 
@@ -42,7 +45,7 @@ export const Login=props=>{
                     className="login-button"
                     type="submit"
                     disabled={email.length===0||password.length===0}
-                    onClick={e=>e.preventDefault()}>
+                    onClick={loginHandler}>
                     <i className="fas fa-sign-in-alt"></i> Login
                 </Button>
                 <span className="register"> 

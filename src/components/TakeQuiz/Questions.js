@@ -13,16 +13,16 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
 
     const submitAnswer = e=>{
         e.preventDefault();
-        const {answer:correctAnswer,type} = _question;
+        const {answer:correctAnswer,questionType} = _question;
         
-        if(type==="blank" && correctAnswer.toLowerCase()===answer.toLowerCase())
+        if(questionType==="blank" && correctAnswer.toLowerCase()===answer.toLowerCase())
             increaseScore();//passing points for this question...by default its one
-        else if(type==="mcq" && correctAnswer===answer)
+        else if(questionType==="mcq" && correctAnswer===answer)
             increaseScore();
         
         if(questionNo==totalQuestions-1)
            return finishQuiz(true);
-
+        setAnswer("");
         setQuestionNo(questionNo+1);
     }
 
@@ -30,7 +30,7 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
   
     let questionContent;
 
-    if(_question.type==="mcq"){
+    if(_question.questionType==="mcq"){
         const {question,options} = _question;
         
         questionContent = (
@@ -51,7 +51,7 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
                 <button onClick={submitAnswer}>Submit</button>
             </div>);
     }
-    else if(_question.type === "blank"){
+    else if(_question.questionType === "blank"){
         const {question} = _question;
         questionContent = (
             <div className = "quiz-question">

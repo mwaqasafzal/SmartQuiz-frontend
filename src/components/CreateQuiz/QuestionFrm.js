@@ -1,15 +1,16 @@
 import React,{useState} from 'react'
 import FilterQuesType from './FilterQuesType'
-import {connect} from 'react-redux'
 import {Container,Form,Button} from 'react-bootstrap'
 
-const QuestionFrm = ({questionTypes,addQuestion,submitQuiz})=>{
+const QuestionFrm = ({addQuestion,submitQuiz})=>{
+
     /* 
         for time being there are two types of questions
         1-mcq
         2-blank
         so we have to provide the interface according to them
     */
+    const questionTypes = ['mcq','blank'];
 
     const [question,setQuestion] = useState("");
     const [invalidQuestion,setInvalidQuestion] = useState("");
@@ -18,7 +19,7 @@ const QuestionFrm = ({questionTypes,addQuestion,submitQuiz})=>{
     const [options,setOptions] = useState(["","","",""]);
     const [invalidOptions,setInvalidOptions] = useState([false,false,false,false]);
     const [questionType,setQuestionType] = useState(questionTypes[0]);
-   
+    
     const changeQuestionType=(type)=>{
         setQuestionType(type);
     }
@@ -58,9 +59,9 @@ const QuestionFrm = ({questionTypes,addQuestion,submitQuiz})=>{
         e.preventDefault();
         let newQuestion = {
             question,
-            type:questionType
+            questionType
         };
-        newQuestion = questionType==="mcq"?{...newQuestion,options}:{...newQuestion,answer};
+        newQuestion = questionType==="mcq"?{...newQuestion,options,answer}:{...newQuestion,answer};
        
         addQuestion(newQuestion);
         setQuestion("");
@@ -72,9 +73,9 @@ const QuestionFrm = ({questionTypes,addQuestion,submitQuiz})=>{
         e.preventDefault();
         let newQuestion = {
             question,
-            type:questionType
+            questionType
         };
-        newQuestion = questionType==="mcq"?{...newQuestion,options}:{...newQuestion,answer};
+        newQuestion = questionType==="mcq"?{...newQuestion,options,answer}:{...newQuestion,answer};
 
         submitQuiz(newQuestion);
     }
@@ -198,8 +199,5 @@ const QuestionFrm = ({questionTypes,addQuestion,submitQuiz})=>{
     );
 }
 
-const mapStateToProps=({questionTypes})=>({
-    questionTypes
-});
 
-export default connect(mapStateToProps)(QuestionFrm);
+export default QuestionFrm;

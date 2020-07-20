@@ -1,9 +1,8 @@
 import React from 'react'
 
-const Question = ({question,type,options,answer,questionNo})=>{
+const Question = ({question,questionType,options,answer,questionNo})=>{
     let content;
-    console.log(type);
-    if(type==="mcq")
+    if(questionType==="mcq")
         content=(
             <div className="question">
                 <p>{questionNo}. {question}</p>
@@ -14,7 +13,7 @@ const Question = ({question,type,options,answer,questionNo})=>{
                 <p>Correct Answer:<b>{options[(answer*1)-1]}</b></p>
             </div>
         );
-    else if(type==="blank")
+    else if(questionType==="blank")
         content=(
             <div className="question">
                     <p>{questionNo}. {question}</p>

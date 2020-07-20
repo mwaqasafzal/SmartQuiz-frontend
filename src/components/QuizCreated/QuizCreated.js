@@ -23,8 +23,8 @@ const quizCreated = ({quizKey,history})=>{
 
 const mapStateToProps = ({quizezCreated},{match})=>{
   
-    const quizId=match.params.quizId*1;
-    const quiz = quizezCreated.find(quiz=>quiz.id===quizId);
+    const quizId=match.params.quizId;
+    const quiz = quizezCreated.find(quiz=>quiz._id===quizId);
 
     return {
         quizKey: quiz.key

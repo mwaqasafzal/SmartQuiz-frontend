@@ -15,9 +15,9 @@ export const Signup=props=>{
     const isDisabled=fullName.length===0 || email.length===0||password.length===0 || confirmPassword.length===0;
    
     const signupHandler=e=>{
-        e.preventDefault();
-        
+        e.preventDefault();   
     }
+  
     return (
         <div className="form">
             <Backdrop backdropCloseHandler={showSignupHandler}/>
@@ -33,7 +33,7 @@ export const Signup=props=>{
                         onChange={e=>setFullName(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Email Address</Form.Label>
                     <Form.Control 
                         type="email" 
                         placeholder="Enter email" 

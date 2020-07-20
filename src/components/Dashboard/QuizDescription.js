@@ -4,6 +4,8 @@ import Backbutton from '../UI/Backbutton'
 import Loader from '../UI/Loader/Loader'
 import Question from './Question'
 import {Card} from 'react-bootstrap'
+import {convertDate} from '../../utils/helpers'
+
 const QuizDescription = ({quiz,history})=>{
 
     if(!quiz)
@@ -19,8 +21,8 @@ const QuizDescription = ({quiz,history})=>{
             
             <Card style={{ width: '28rem',margin:'auto' }}>
                 <Card.Body>
-                    <Card.Text>Created @ <b>{createdAt}</b></Card.Text>
-                    <Card.Text>Deadline @ <b>{deadline}</b></Card.Text>
+                    <Card.Text>Created @ <b>{convertDate(createdAt)}</b></Card.Text>
+                    <Card.Text>Deadline @ <b>{convertDate(deadline)}</b></Card.Text>
                     <Card.Text>Total Score <b>{questions.length}</b></Card.Text>
                     <Card.Text>Duration <b>{duration.hrs} hrs {duration.mins} mins</b></Card.Text>
                 </Card.Body>
@@ -44,7 +46,7 @@ const QuizDescription = ({quiz,history})=>{
 const mapStateToProps = ({quizezCreated},{match})=>{
     const quizId = match.params.quizId;
     return {
-        quiz:quizezCreated.find(({id})=>id===quizId)
+        quiz:quizezCreated.find(({_id})=>_id===quizId)
     }
 }
 export default connect(mapStateToProps)(QuizDescription);

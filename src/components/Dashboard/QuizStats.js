@@ -5,6 +5,7 @@ import QuizAttendee from './QuizAttendee'
 import Loader from '../UI/Loader/Loader'
 import {connect} from 'react-redux'
 import {Container,Card,Table} from 'react-bootstrap'
+import {convertDate} from '../../utils/helpers'
 
 const QuizStats = ({match,quiz})=>{
     const path = match.url;//will be like /dashboard/quizez-created/<quiz-id>
@@ -28,36 +29,39 @@ const QuizStats = ({match,quiz})=>{
                 <Container>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
-                            <Card.Text>Created @ <b>{quiz.createdAt}</b></Card.Text>
-                            <Card.Text>Deadline @ <b>{quiz.deadline}</b></Card.Text>
+                            <Card.Text>Created @ <b>{convertDate(quiz.createdAt)}</b></Card.Text>
+                            <Card.Text>Deadline @ <b>{convertDate(quiz.deadline)}</b></Card.Text>
                             <Card.Text>Total Score <b>{quiz.questions.length}</b></Card.Text>
                             <Card.Text>Duration <b>{quiz.duration.hrs} hrs {quiz.duration.mins} mins</b></Card.Text>
                             <Link to={`${path}/fullquiz`}>See Complete Quiz</Link>
                         </Card.Body>
                     </Card>
                     <br/>
+                    {attendees.length===0 && <h5 className="center">No has Attempted this Quiz Yet!</h5>}
                     <div className="complete-stats">
-                        <Table responsive>
+                       {attendees.length>0 && ( <Table responsive>
                             <thead style={{backgroundColor:'#204051',color:'#e4e3e3'}}>
                                 <tr>
                                     <th>Attendee</th>
+                                    <th>Email</th>
                                     <th>Date/Time</th>
                                     <th>Score</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    attendees.map(attendee=>(
+                                    attendees.map((attendee,ind)=>(
                                         <QuizAttendee
-                                            key = {attendee.username}
-                                            attendee ={attendee.username}
-                                            attendedAt = {attendee.attemptedAt}
+                                            key = {ind}
+                                            attendee ={attendee.fullName}
+                                            email = {attendee.email}
+                                            attendedAt = {new Date(attendee.takenAt)}
                                             score = {attendee.score}
                                         />
                                     ))
                                 }
                             </tbody>
-                        </Table>
+                        </Table>)}
                     </div>
                 </Container>
                
@@ -69,7 +73,7 @@ const QuizStats = ({match,quiz})=>{
 const mapStateToProps = ({quizezCreated},{match})=>{
     const {quizId} = match.params;
     return {
-        quiz:quizezCreated.find(({id})=>id===quizId)
+        quiz:quizezCreated.find(({_id})=>_id===quizId)
     }
 }
 export default connect(mapStateToProps)(QuizStats);

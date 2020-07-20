@@ -3,9 +3,9 @@ import QuizCreatedDesc from './QuizCreatedDesc'
 import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
 const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
-    return(
-        <div className="quizzes-created">
-            <h2 className="title">Quizzes Created</h2>
+    let content = <h5 className="center"> You have not Created any Quiz yet!</h5>;
+    if(quizezCreated.length>0)
+        content = (
             <Table responsive>
                 <thead style={{backgroundColor:'#204051',color:'#e4e3e3'}}>
                     <tr>
@@ -18,21 +18,26 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                     </tr>
                 </thead>
                 <tbody>
-                   {quizezCreated.map((quiz,ind)=>(
-                       <QuizCreatedDesc
-                          quizNo={ind+1}
-                          key = {quiz.id}
-                          quizId = {quiz.id}
-                          name = {quiz.name}
-                          createdAt = {quiz.createdAt}
-                          deadline = {quiz.deadline}
-                          duration = {quiz.duration}
-                       />
-                   ))}
+                    {quizezCreated.map((quiz,ind)=>(
+                        <QuizCreatedDesc
+                            quizNo={ind+1}
+                            key = {quiz._id}
+                            quizId = {quiz._id}
+                            name = {quiz.name}
+                            createdAt = {quiz.createdAt}
+                            deadline = {quiz.deadline}
+                            duration = {quiz.duration}
+                        />
+                    ))}
                 </tbody>
                     
-                   
+                    
             </Table>
+        );
+    return(
+        <div className="quizzes-created">
+            <h2 className="title">Quizzes Created</h2>
+            {content}
         </div>
     );
 }

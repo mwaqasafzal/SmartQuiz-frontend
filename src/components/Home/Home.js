@@ -8,7 +8,7 @@ import {Signup} from './Signup'
 import {Contact} from './Contact'
 import {AuthContext} from '../../context/AuthContext'
 
-export const Home=props=>{
+const Home=props=>{
     const [showLogin,setShowLogin]=useState(false);
     const [showSignup,setShowSignup]=useState(false);
     const showLoginHandler=()=>{
@@ -52,3 +52,5 @@ return (
 );
 
 }
+
+export default Home;

@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import {createQuiz} from '../../utils/api'
 import {createNewQuiz} from '../../actions/quizezCreated'
 import {Container,Form,Button} from 'react-bootstrap'
+import shortid from 'shortid'
 
-const CreateQuiz = ({match,authed,dispatch,history})=>{
+const CreateQuiz = ({dispatch,history})=>{
 
     const [questions,setQuestions] = useState([]);
     const [duration,setDuration] = useState({hrs:0,mins:0});
@@ -25,12 +26,13 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
             but it gets called on mounting as well,so to stop that we created a reference
             and on mounthing it will be undefined,so we can check and work accordingly
         */
-    
+        
         if(checkRef.current){
+            const key = shortid();
             const quiz = {
-                creator:authed,
+                key,
                 name:quizName,
-                deadline,
+                deadline:new Date(deadline).toUTCString(),
                 duration,
                 questions
             };
@@ -39,9 +41,8 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
                 const updatedQuiz = await createQuiz(quiz);
                 //updating the store
                 dispatch(createNewQuiz(updatedQuiz));
-                console.log(updatedQuiz);
                 
-                history.replace(`/created-quiz/${updatedQuiz.id}`);
+                history.replace(`/created-quiz/${updatedQuiz._id}`);
             })();
             
         }
@@ -77,7 +78,6 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
 
     const durationHandler = (type,value)=>{
         if(duration.hrs==0 && duration.Mins==0){
-            alert('invalid duration')
             setInvalidHrs(true);
             setInvalidMins(true);
         }
@@ -93,7 +93,7 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
                     setInvalidHrs(true);
                 }    
             }
-            setDuration({...duration,hrs:value});
+            setDuration({...duration,hrs:value*1});
         }
         else{
             if(value==0)
@@ -101,7 +101,7 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
                     setInvalidMins(true);
                     setInvalidHrs(true);
                 }
-            setDuration({...duration,mins:value})
+            setDuration({...duration,mins:value*1})
         }
            
     }
@@ -109,11 +109,12 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
     const deadlineHandler = deadline=>{
         const deadlineDate = new Date(deadline);
         const today = new Date();
-        if(deadlineDate.getDate()<today.getDate())
+
+        if(deadlineDate < today)
             setInvalidDeadline(true);
         else
             setInvalidDeadline(false);
-        setDeadline(deadline);
+        setDeadline(deadline);//will be stored in utc over the server
     }
 
     const checkValidity=()=>{
@@ -196,7 +197,5 @@ const CreateQuiz = ({match,authed,dispatch,history})=>{
     return content;
 }
 
-const mapStateToProps = ({authed})=>({
-    authed
-});
-export default connect(mapStateToProps)(CreateQuiz);
+
+export default connect()(CreateQuiz);

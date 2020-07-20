@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import Questions from './Questions'
 import Timer from './Timer'
+import Result from './Result'
 import {connect} from 'react-redux'
 import {takeNewQuizHandler} from '../../actions/quizezTaken'
 import {Container} from 'react-bootstrap'
@@ -14,14 +15,14 @@ const Quiz=({quiz,dispatch})=>{
     useEffect(()=>{
         if(completedRef.current){
             const quizStats={
-                quizId:quiz.id,
+                _id:quiz._id,
+                key:quiz.key,
                 quizName:quiz.name,
                 total:quiz.questions.length,
                 score,
-                takenAt:new Date(),
+                takenAt:new Date().toUTCString(),
                 createdBy:quiz.createdBy
             }
-            console.log(quizStats);
             dispatch(takeNewQuizHandler(quizStats));
         }
         else
@@ -39,14 +40,10 @@ const Quiz=({quiz,dispatch})=>{
     let content;
     if(quizCompleted)
         content = (
-            <div className="taking-quiz">
-                <h2 className="title">Result</h2>
-                <div style={{textAlign:'center'}}>
-                    <h3>{quiz.name}</h3>
-                    <h4>Score: {score}/{quiz.questions.length}</h4>
-                </div>
-                
-            </div>
+            <Result 
+                quizname={quiz.name} 
+                score={score}
+                total={quiz.questions.length}/>
         );
     else
         content = (
