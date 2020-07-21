@@ -20,7 +20,6 @@ function App({authed,dispatch}) {
   
 
   useEffect(()=>{
-    console.log("authenticating");
     dispatch(auth());
   },[]);
 
