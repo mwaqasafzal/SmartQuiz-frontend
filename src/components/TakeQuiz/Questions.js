@@ -42,6 +42,7 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
                              <input 
                                 type="radio"
                                 value = {ind+1}
+                                name="option"
                                 onChange = {e=>answerChangeHandler(e.target.value)}/> &nbsp;
                                 { option} 
                                 <br/>

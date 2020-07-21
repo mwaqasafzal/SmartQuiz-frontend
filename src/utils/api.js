@@ -70,7 +70,7 @@ export const createQuiz = async(quiz)=>{
    
 }
 export const takenQuiz = async(quizStats)=>{
-    const res=fetch(`${HOST}/quizzes/${quizStats.key}`,{
+    const res=await fetch(`${HOST}/quizzes/${quizStats.key}`,{
         method:'POST',
         body:JSON.stringify({
             ...quizStats
@@ -81,9 +81,10 @@ export const takenQuiz = async(quizStats)=>{
         credentials:'include'
     });
 
-    if(!res.ok)//means server error
-        throw new ServerError("Something went wrong");
+    if(!res.ok)//means server errorr
 
+        throw new ServerError("Something went wrong");
+ 
      
 }
 
