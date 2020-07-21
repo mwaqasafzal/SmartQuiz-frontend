@@ -1,10 +1,14 @@
+import {AUTH_FAILURE,AUTH_SUCCESS} from '../actions/authed'
 
-const initialState={
-    username:"mwaqas",
-    fullName:"Muhammad Waqas"
-}
-export default function(state=initialState,action){
+
+export default function(state=null,action){
     switch(action.type){
+        case AUTH_SUCCESS:
+            return {
+                ...action.user,
+            }
+        case AUTH_FAILURE:
+            return null;
         default:
             return state;
     }

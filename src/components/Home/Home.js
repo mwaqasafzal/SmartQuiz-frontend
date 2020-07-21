@@ -3,12 +3,13 @@ import {Cover} from './Cover'
 import {Services} from './Services'
 import {About} from './About'
 import {HomeNav} from './HomeNav'
-import {Login} from './Login'
-import {Signup} from './Signup'
+import Login from './Login'
+import Signup from './Signup'
 import {Contact} from './Contact'
 import {AuthContext} from '../../context/AuthContext'
 
 const Home=props=>{
+    
     const [showLogin,setShowLogin]=useState(false);
     const [showSignup,setShowSignup]=useState(false);
     const showLoginHandler=()=>{

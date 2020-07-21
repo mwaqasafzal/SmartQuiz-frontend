@@ -9,25 +9,34 @@ import QuizzesTaken from './components/Dashboard/QuizzesTaken'
 import QuizzesCreated from './components/Dashboard/QuizzesCreated'
 import QuizDescription from './components/Dashboard/QuizDescription'
 import QuizStats from './components/Dashboard/QuizStats'
+import NotFound from './components/Errors/404'
+import ServerError from './components/Errors/500'
 import {Route,Switch, Redirect} from 'react-router-dom'
-import {loadData} from './actions/shared'
 import {connect} from 'react-redux'
+import {auth} from './actions/authed'
+
 
 function App({authed,dispatch}) {
   
 
   useEffect(()=>{
-    dispatch(loadData());
+    console.log("authenticating");
+    dispatch(auth());
   },[]);
 
-  let routes=(
+  let content;
+  
+  if(!authed)
+    content=(
     <Switch>
-      <Route to="/" exact component={Home}/>
-      <Route to="*" render={()=><Redirect to="/"/>}/>
+      <Route path="/" exact component={Home}/>
+      <Route path="/500" exact component={ServerError}/>
+      <Route path="*" component={NotFound}/>
     </Switch>
-      );
-  if(authed)
-    routes = (
+    );
+
+  else if(authed)
+    content = (
       <React.Fragment>
         <Navbar/>
         <Switch>
@@ -40,12 +49,14 @@ function App({authed,dispatch}) {
           <Route path="/create-quiz" exact component={CreateQuiz}/>
           <Route path="/created-quiz/:quizId" component={QuizCreated}/>
           <Route path="/take-quiz" exact component={TakeQuiz}/>
+          <Route path="/500" exact component={ServerError}/>
+          <Route path="*" component={NotFound}/>
         </Switch>    
     </React.Fragment>
     );
   return (
     <div className="App">
-        {routes}
+        {content}
     </div>
   );
 }

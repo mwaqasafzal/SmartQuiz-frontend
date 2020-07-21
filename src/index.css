@@ -167,6 +167,9 @@ header{
   background-color: transparent;
 }
 
+.navbar-nav a{
+  cursor: pointer;
+}
 .login-btn{
   border:none;
   outline:none;
@@ -356,7 +359,10 @@ header{
 .invalid-input{
   border-color:red !important;
 }
-
+.error-label{
+  color:red;
+  font-size: 0.8rem;
+}
 .filter{
   border:1px solid #204051;
   padding:8px;

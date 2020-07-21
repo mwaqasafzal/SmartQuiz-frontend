@@ -2,6 +2,7 @@ import {receiveAllQuizezTaken} from './quizezTaken'
 import {receiveAllQuizezCreated} from './quizezCreated'
 import * as API from '../utils/api'
 
+export const NET_ERR = "NETWORK_ERROR"
 
 export const loadData = ()=>{//async action creator
     return dispatch=>{
@@ -15,3 +16,9 @@ export const loadData = ()=>{//async action creator
     }
     
 }
+
+export const networkError = ()=>(
+    {
+        type:NET_ERR
+    }
+);

@@ -55,7 +55,7 @@ const QuizStats = ({match,quiz})=>{
                                             key = {ind}
                                             attendee ={attendee.fullName}
                                             email = {attendee.email}
-                                            attendedAt = {new Date(attendee.takenAt)}
+                                            attendedAt = {`${new Date(attendee.takenAt)}`}
                                             score = {attendee.score}
                                         />
                                     ))

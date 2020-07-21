@@ -2,18 +2,45 @@ import React,{useContext,useState} from 'react'
 import Backdrop from '../UI/Backdrop'
 import {Form,Button} from 'react-bootstrap'
 import {AuthContext} from '../../context/AuthContext'
-export const Login=props=>{
+import {connect} from 'react-redux'
+import {login} from './../../utils/api'
+import {auth} from '../../actions/authed'
+import {InvalidKeyError,NotFoundError} from '../../Exceptions'
+
+const Login=({dispatch})=>{
     
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const [incorrect,setIncorrect]=useState(false);
+    const [notExist,setNotExist] = useState(false);
     const {showLoginHandler,showSignupHandler}=useContext(AuthContext);
+
     const showSignup=e=>{
         e.preventDefault();
         showSignupHandler();
     }
 
-    const loginHandler=e=>{
+    const loginHandler=async(e)=>{
         e.preventDefault();
+        setIncorrect(false);
+        setNotExist(false);
+        
+        try {
+            console.log('logging in ');
+             await login({email,password}); 
+            dispatch(auth());
+        }
+         catch (error) {
+            if(error instanceof InvalidKeyError)
+                setIncorrect(true);
+            else if(error instanceof NotFoundError)
+                setNotExist(true);
+            else
+                console.log('server error');
+            
+
+        }
+        
     }
     return (
         <div className="form">
@@ -41,6 +68,8 @@ export const Login=props=>{
                         value={password}
                         onChange={e=>setPassword(e.target.value)}/>
                 </Form.Group>
+                {incorrect && <label className="error-label">*Email or Password Incorrect</label>}
+                {notExist && <label className="error-label">*User not found</label>}
                 <Button 
                     className="login-button"
                     type="submit"
@@ -58,3 +87,5 @@ export const Login=props=>{
         </div>
     );
 }
+
+export default connect()(Login);

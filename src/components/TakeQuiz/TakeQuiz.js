@@ -2,7 +2,9 @@ import React,{useState} from 'react'
 import Quiz from './Quiz'
 import {getQuiz} from '../../utils/api'
 import {Container,Form,Button} from 'react-bootstrap'
-const TakeQuiz = props=>{
+
+
+const TakeQuiz = (props)=>{
     const [key,setKey] = useState("");
     const [invalidKey,setInvalidKey] = useState(false);//for form validation
     const [incorrectKey,setIncorrectKey] = useState(false);//is there any quiz with that key
@@ -18,16 +20,17 @@ const TakeQuiz = props=>{
     }
     const startQuiz = e=>{
         e.preventDefault();
+        const keyValue = key;
+        setKey("");
         (async function(){
             try {
-                const quiz = await getQuiz(key);
+                const quiz = await getQuiz(keyValue);
                 setQuiz(quiz);
                 
             } catch (error) {
                 setIncorrectKey(true);
                 setKey("");   
             }
-
         })();
     }
     let content = (
