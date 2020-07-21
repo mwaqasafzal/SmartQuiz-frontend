@@ -1,4 +1,4 @@
-import {AUTH_FAILURE,AUTH_SUCCESS} from '../actions/authed'
+import {AUTH_FAILURE,AUTH_SUCCESS, LOG_OUT} from '../actions/authed'
 
 
 export default function(state=null,action){
@@ -8,7 +8,9 @@ export default function(state=null,action){
                 ...action.user,
             }
         case AUTH_FAILURE:
+        case LOG_OUT:
             return null;
+        
         default:
             return state;
     }

@@ -20,14 +20,12 @@ const Questions=({questions,finishQuiz,increaseScore})=>{
         else if(questionType==="mcq" && correctAnswer===answer)
             increaseScore();
         
-        if(questionNo==totalQuestions-1)
+        if(questionNo===totalQuestions-1)
            return finishQuiz(true);
         setAnswer("");
         setQuestionNo(questionNo+1);
     }
 
-
-  
     let questionContent;
 
     if(_question.questionType==="mcq"){

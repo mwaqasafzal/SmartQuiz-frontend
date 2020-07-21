@@ -455,4 +455,8 @@ header{
     text-decoration: none;
   }
  
-
+.logout-btn{
+  border: none;
+  background-color: transparent;
+  color: white;
+}

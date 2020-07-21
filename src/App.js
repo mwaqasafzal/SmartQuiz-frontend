@@ -30,7 +30,7 @@ function App({authed,dispatch}) {
     <Switch>
       <Route path="/" exact component={Home}/>
       <Route path="/500" exact component={ServerError}/>
-      <Route path="*" component={NotFound}/>
+      <Route path="*" render={()=><Redirect to="/"/>}/>
     </Switch>
     );
 

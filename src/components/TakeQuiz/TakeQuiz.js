@@ -37,6 +37,7 @@ const TakeQuiz = (props)=>{
         
        <div className = "take-quiz">
             <Container  style={{maxWidth:"500px",minWidth:'400px',width:"50%"}}>
+                <h5 className="center" style={{color:"#3b6978"}}>Hi There! This is for testing purpose,you can take an already made quiz using key <b>WyD6ufInu</b></h5>
                 <Form >
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label style={{fontSize:'1.3rem',fontWeight:'bold'}}>Quiz Key</Form.Label>

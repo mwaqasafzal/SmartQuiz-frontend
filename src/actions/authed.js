@@ -1,9 +1,9 @@
-import {getSelf,login as userLogin,signUp as userSignUp} from '../utils/api'
+import {getSelf,logout} from '../utils/api'
 import {loadData} from './shared'
 
 export const AUTH_SUCCESS = "AUTH_SUCCESS"
 export const AUTH_FAILURE = "AUTH_FAILURE"
-
+export const LOG_OUT = "LOG_OUT"
 export const authSuccess=user=>{
     return {
         type:AUTH_SUCCESS,
@@ -14,6 +14,12 @@ export const authSuccess=user=>{
 export const authFailure=()=>{
     return {
         type:AUTH_FAILURE
+    }
+}
+
+export const logoutUser=()=>{
+    return {
+        type:LOG_OUT
     }
 }
 
@@ -34,23 +40,16 @@ export const auth=()=>{
     }
 }
 
-// export const login = (loginData)=>{
-//     return dispatch=>{
-//         (async function(){
-//             const user = await userLogin(loginData);
-//             dispatch(authSuccess(user));
-//             dispatch(loadData());
+export const logoutHandler=()=>{
+    return dispatch=>{
+        (async()=>{
+            try {
+                await logout();
+                dispatch(logoutUser());
+            } catch (error) {
+                //network error for sure
+            }
+        })();
+    }
+}
 
-//         })();
-//     }
-// }
-
-// export const signUp = ({fullName,email,password})=>{
-//     return dispatch=>{
-//         (async function(){
-//             const user = await userSignUp({fullName,email,password});
-//             dispatch(authSuccess(user));
-//             dispatch(loadData);
-//         })();
-//     }
-// }

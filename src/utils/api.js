@@ -170,6 +170,12 @@ export const signUp = async({username,fullName,email,password})=>{
         throw new DuplicateKeyError("Email Already Exists");
     else
         throw new ServerError("Something Went Wrong")
-   
-    
+      
+}
+
+export const logout=async()=>{
+    const res = await fetch(`${HOST}/users/logout`,{
+        credentials:'include'
+    });
+    console.log('logout res',res);
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import QuizTakenDesc from './QuizTakenDesc'
-import {Container,Row,Col,Table} from 'react-bootstrap'
+import {Table} from 'react-bootstrap'
 const QuizTaken=({quizezTaken})=>{
     let content = <h5 className="center"> You have not Attempted/Taken any Quiz yet!</h5>;
     if(quizezTaken.length>0)

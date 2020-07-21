@@ -2,8 +2,9 @@ import React from 'react'
 import Logo from './Logo'
 import {Navbar,Nav} from 'react-bootstrap'
 import {NavLink} from 'react-router-dom'
-
-const Navigationbar = ()=>{   
+import {connect} from 'react-redux'
+import {logoutHandler} from '../../actions/authed'
+const Navigationbar = ({dispatch})=>{   
 
     return(
         <Navbar bg="navbar" expand="lg">
@@ -15,9 +16,12 @@ const Navigationbar = ()=>{
                         <NavLink className="p-2 nv-link" activeClassName="active" to="/create-quiz">Create Quiz</NavLink>
                         <NavLink className="p-2 nv-link" activeClassName="active" to="/take-quiz">Take Quiz</NavLink>
                 </Nav>
+                <button 
+                        className="logout-btn" 
+                        onClick={()=>{dispatch(logoutHandler())}}><i className="fas fa-sign-out-alt"></i> Logout</button>
             </Navbar.Collapse>
         </Navbar>
     );
 }
 
-export default Navigationbar;
+export default connect()(Navigationbar);
