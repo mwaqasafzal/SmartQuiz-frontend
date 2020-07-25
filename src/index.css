@@ -460,3 +460,7 @@ header{
   background-color: transparent;
   color: white;
 }
+
+input{
+  outline:none !important;
+}

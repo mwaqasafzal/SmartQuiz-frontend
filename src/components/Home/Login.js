@@ -1,4 +1,5 @@
 import React,{useContext,useState} from 'react'
+import validator from 'validator'
 import Backdrop from '../UI/Backdrop'
 import {Form,Button} from 'react-bootstrap'
 import {AuthContext} from '../../context/AuthContext'
@@ -6,10 +7,12 @@ import {connect} from 'react-redux'
 import {login} from './../../utils/api'
 import {auth} from '../../actions/authed'
 import {InvalidKeyError,NotFoundError} from '../../Exceptions'
+import { isValid } from 'shortid'
 
 const Login=({dispatch})=>{
     
     const [email,setEmail]=useState("");
+    const [invalidEmail,setInvalidEmail]=useState(false);
     const [password,setPassword]=useState("");
     const [incorrect,setIncorrect]=useState(false);
     const [notExist,setNotExist] = useState(false);
@@ -18,6 +21,15 @@ const Login=({dispatch})=>{
     const showSignup=e=>{
         e.preventDefault();
         showSignupHandler();
+    }
+
+    const emailChangeHandler=(email)=>{
+        if(validator.isEmail(email))
+            setInvalidEmail(false);
+        else
+            setInvalidEmail(true);
+        
+        setEmail(email);
     }
 
     const loginHandler=async(e)=>{
@@ -42,6 +54,7 @@ const Login=({dispatch})=>{
         }
         
     }
+
     return (
         <div className="form">
             <Backdrop backdropCloseHandler={showLoginHandler}/>
@@ -54,7 +67,9 @@ const Login=({dispatch})=>{
                         type="email" 
                         placeholder="Enter email" 
                         value={email}
-                        onChange={e=>setEmail(e.target.value)}/>
+                        className={invalidEmail?"invalid-input":null}
+                        onChange={e=>emailChangeHandler(e.target.value)}
+                        />
                     <Form.Text className="text-muted">
                      We'll never share your email with anyone else.
                     </Form.Text>
@@ -73,7 +88,7 @@ const Login=({dispatch})=>{
                 <Button 
                     className="login-button"
                     type="submit"
-                    disabled={email.length===0||password.length===0}
+                    disabled={invalidEmail || password.length===0}
                     onClick={loginHandler}>
                     <i className="fas fa-sign-in-alt"></i> Login
                 </Button>
