@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 import {login} from './../../utils/api'
 import {auth} from '../../actions/authed'
 import {InvalidKeyError,NotFoundError} from '../../Exceptions'
-import { isValid } from 'shortid'
 
 const Login=({dispatch})=>{
     
@@ -16,7 +15,9 @@ const Login=({dispatch})=>{
     const [password,setPassword]=useState("");
     const [incorrect,setIncorrect]=useState(false);
     const [notExist,setNotExist] = useState(false);
+    const [loggingIn,setLoggingIn]=useState(false);
     const {showLoginHandler,showSignupHandler}=useContext(AuthContext);
+   
 
     const showSignup=e=>{
         e.preventDefault();
@@ -36,11 +37,11 @@ const Login=({dispatch})=>{
         e.preventDefault();
         setIncorrect(false);
         setNotExist(false);
+        setLoggingIn(true);
         
         try {
-            console.log('logging in ');
              await login({email,password}); 
-            dispatch(auth());
+             dispatch(auth());
         }
          catch (error) {
             if(error instanceof InvalidKeyError)
@@ -49,8 +50,9 @@ const Login=({dispatch})=>{
                 setNotExist(true);
             else
                 console.log('server error');
-            
-
+        }
+        finally{
+            setLoggingIn(false);
         }
         
     }
@@ -88,7 +90,7 @@ const Login=({dispatch})=>{
                 <Button 
                     className="login-button"
                     type="submit"
-                    disabled={email.length===0 || invalidEmail || password.length===0}
+                    disabled={email.length===0 || invalidEmail || password.length===0 || loggingIn}
                     onClick={loginHandler}>
                     <i className="fas fa-sign-in-alt"></i> Login
                 </Button>

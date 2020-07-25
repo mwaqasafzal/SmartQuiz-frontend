@@ -123,8 +123,9 @@ export const getSelf = async()=>{
 }
 
 export const login = async({email,password})=>{//userId might be email or password
-
-    const res = await fetch(`${HOST}/users/login`,{
+    const uri=`${HOST}/users/login`;
+    console.log(uri);
+    const res = await fetch(uri,{
         method:'POST',
         body:JSON.stringify({
             email,
