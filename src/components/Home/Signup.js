@@ -1,4 +1,5 @@
 import React,{useContext,useState} from 'react'
+import validator from 'validator'
 import Backdrop from '../UI/Backdrop'
 import {Form,Button} from 'react-bootstrap'
 import {AuthContext} from './../../context/AuthContext'
@@ -9,25 +10,63 @@ import {connect} from 'react-redux'
 const Signup=({dispatch})=>{
  
     const [fullName,setFullName]=useState("");
+    const [invalidName,setInvalidName]=useState(false);
     const [email,setEmail]=useState("");
+    const [invalidEmail,setInvalidEmail] =useState(false);//for input validation
     const [password,setPassword]=useState("");
+    const [invalidPass,setInvalidPass]=useState(false);//for input validation...min letters 8
     const [confirmPassword,setConfirmPassword]=useState("");
-    const [confirmPassIncorrect,setConfirmPassIncorrect]=useState(false);
+    const [invalidConfirmPass,setInvalidConfirmPass]=useState(false);
     const [emailExists,setEmailExists]= useState(false);
-
-    //to hide the signup form(setting the show to false)
+   
+     //to hide the signup form(setting the show to false)
     const {showSignupHandler}=useContext(AuthContext);
-    const isDisabled=fullName.length===0 || email.length===0||password.length===0 || confirmPassword.length===0;
+    //because for first time invalidEmail will be false therefore email.legth will be check,same goes to password
+    const isDisabled= fullName.length===0 || email.length===0 || invalidEmail || 
+                        password.length===0 || invalidPass ||
+                        confirmPassword.length===0 || invalidConfirmPass;
     
+    
+    const changeFullNameHandler=name=>{
+        if(name.length===0)
+            setInvalidName(true);
+        else
+            setInvalidName(false);
+        setFullName(name);            
+    }
+    const changeEmailHandler=email=>{
+        if(validator.isEmail(email))
+            setInvalidEmail(false);
+        else
+            setInvalidEmail(true);
+        
+        setEmail(email);
+    }
+
+    
+    const changePassHandler=pass=>{
+        if(pass.trim().length<8)
+            setInvalidPass(true);
+        else
+            setInvalidPass(false);
+
+        setPassword(pass);
+    }
+
+    const changeConfirmPassHandler=pass=>{
+        if(password!==pass)
+            setInvalidConfirmPass(true);
+        else
+            setInvalidConfirmPass(false);
+
+        setConfirmPassword(pass);
+    }
+
     const signupHandler=(e)=>{
         e.preventDefault();
 
         setEmailExists(false);
-        if(password!==confirmPassword)
-           return setConfirmPassIncorrect(true);
-        else
-            setConfirmPassIncorrect(false);
-   
+       
         (async function(){
             try {
                 await signUp({
@@ -57,7 +96,8 @@ const Signup=({dispatch})=>{
                         type="text" 
                         placeholder="Enter Full Name" 
                         value={fullName}
-                        onChange={e=>setFullName(e.target.value)}/>
+                        className={invalidName?"invalid-input":null}
+                        onChange={e=>changeFullNameHandler(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email Address</Form.Label>
@@ -65,7 +105,8 @@ const Signup=({dispatch})=>{
                         type="email" 
                         placeholder="Enter Email" 
                         value={email}
-                        onChange={e=>setEmail(e.target.value)}/>
+                        className={invalidEmail?"invalid-input":null}
+                        onChange={e=>changeEmailHandler(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -74,18 +115,22 @@ const Signup=({dispatch})=>{
                         type="password" 
                         placeholder="Enter Password"
                         value={password}
-                        onChange={e=>setPassword(e.target.value)}/>
+                        className={invalidPass?"invalid-input":null}
+                        onChange={e=>changePassHandler(e.target.value)}/>
+                    {invalidPass && <label className="error-label">*Password Should be at least 8 characters</label>}
                 </Form.Group>
+
                 <Form.Group controlId="formBasicConfirmPassword">
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control 
                         type="password" 
                         placeholder="Re-enter Password"
                         value={confirmPassword}
-                        onChange={e=>setConfirmPassword(e.target.value)}/>
+                        className={invalidConfirmPass?"invalid-input":null}
+                        onChange={e=>changeConfirmPassHandler(e.target.value)}/>
                 </Form.Group>
                 {emailExists && <label className="error-label">*Email Exists Already</label>}
-                {confirmPassIncorrect && <label className="error-label">*Can't confirm password</label>}
+                
                 <Button 
                     className="login-button"
                     type="submit"

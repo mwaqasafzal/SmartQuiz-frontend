@@ -88,7 +88,7 @@ const Login=({dispatch})=>{
                 <Button 
                     className="login-button"
                     type="submit"
-                    disabled={invalidEmail || password.length===0}
+                    disabled={email.length===0 || invalidEmail || password.length===0}
                     onClick={loginHandler}>
                     <i className="fas fa-sign-in-alt"></i> Login
                 </Button>
