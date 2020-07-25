@@ -18,7 +18,7 @@ const Signup=({dispatch})=>{
     const [confirmPassword,setConfirmPassword]=useState("");
     const [invalidConfirmPass,setInvalidConfirmPass]=useState(false);
     const [emailExists,setEmailExists]= useState(false);
-   
+    const [signingUp,setSigningUp] = useState(false);
      //to hide the signup form(setting the show to false)
     const {showSignupHandler}=useContext(AuthContext);
     //because for first time invalidEmail will be false therefore email.legth will be check,same goes to password
@@ -66,7 +66,8 @@ const Signup=({dispatch})=>{
         e.preventDefault();
 
         setEmailExists(false);
-       
+        setSigningUp(true);
+
         (async function(){
             try {
                 await signUp({
@@ -78,6 +79,9 @@ const Signup=({dispatch})=>{
                 dispatch(auth());
             } catch (error) {
                 setEmailExists(true);
+            }
+            finally{
+                setSigningUp(false);
             }
         })();
       
@@ -134,7 +138,7 @@ const Signup=({dispatch})=>{
                 <Button 
                     className="login-button"
                     type="submit"
-                    disabled={isDisabled}
+                    disabled={isDisabled || signingUp}
                     onClick={signupHandler}>
                     <i className="fas fa-user-plus"></i> Signup
                 </Button>
