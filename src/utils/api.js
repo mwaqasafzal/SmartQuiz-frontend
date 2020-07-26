@@ -1,6 +1,10 @@
 import {HOST} from './configs'
 import {DuplicateKeyError,ServerError,NotFoundError,InvalidKeyError} from '../Exceptions'
 
+const networkError = {
+    type:'Network Error',
+    message:"Kindly Check Your Network Connection and Try Again"
+};
 
 export const getQuizezTaken=async ()=>{
     
@@ -93,14 +97,41 @@ export const getQuiz = async(key)=>{
     const res = await fetch(`${HOST}/quizzes/${key}`,{
         credentials:'include'
     })
+    
     if(res.ok){
         const formattedRes = await res.json();
-        return formattedRes.data.quiz;
+        return formattedRes.data;
     }
     else if(res.status===404)
-        throw new NotFoundError("Quiz Not Found");
+        return {
+            status:'failed',
+            error:{
+                type:'Not Found',
+                message:'Quiz not found'
+            }
+        };
     else if(res.status===403)
-        throw new InvalidKeyError("Key has been expired");
+        return {
+            status:'failed',
+            error:{
+                type: 'Not Allowed',
+                message:'Quiz Already Taken or Key Expired'
+            }
+        };
+    else if(res.status===500)
+        return{
+            status:'failed',
+            error:{
+                type:'Server Error',
+                message:'Something Went Wrong,Please Try Again Later'
+            }
+        }
+    else
+        return{
+            status:'failed',
+            error:networkError
+        }
+
 
 }
 
@@ -188,7 +219,25 @@ export const removeQuiz=async(quizId)=>{
     })
 
     if(res.ok)
-        return true;
-    else 
-        return false;
+        return {status:'success'};
+    else if(res.status===404)
+        return {
+            status:'failed',
+            error:{
+                message:'Quiz Not Found'
+            }
+    }
+    else if(res.status===500)
+        return {
+                status:'failed',
+                error:{
+                    type:'Server Error',
+                    message:"Something Went Wrong,can't remove quiz"
+                }
+            }
+    else
+        return {
+            status:'failed',
+            error:networkError
+        }
 }

@@ -10,11 +10,11 @@ import QuizzesCreated from './components/Dashboard/QuizzesCreated'
 import QuizDescription from './components/Dashboard/QuizDescription'
 import QuizStats from './components/Dashboard/QuizStats'
 import NotFound from './components/Errors/404'
-import ServerError from './components/Errors/500'
 import {Route,Switch, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {auth} from './actions/authed'
 import Loader from './components/UI/Loader/FullScLoader'
+import Error from './components/Errors/Error'
 
 
 function App({authed,dispatch}) {
@@ -30,7 +30,6 @@ function App({authed,dispatch}) {
     content=(
     <Switch>
       <Route path="/" exact component={Home}/>
-      <Route path="/500" exact component={ServerError}/>
       <Route path="*" render={()=><Redirect to="/"/>}/>
     </Switch>
     );
@@ -50,13 +49,13 @@ function App({authed,dispatch}) {
           <Route path="/create-quiz" exact component={CreateQuiz}/>
           <Route path="/created-quiz/:quizId" component={QuizCreated}/>
           <Route path="/take-quiz" exact component={TakeQuiz}/>
-          <Route path="/500" exact component={ServerError}/>
           <Route path="*" component={NotFound}/>
         </Switch>    
     </React.Fragment>
     );
   return (
     <div className="App">
+       <Error/>
         {content}
     </div>
   );

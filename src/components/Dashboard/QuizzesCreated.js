@@ -2,6 +2,7 @@ import React from 'react'
 import QuizCreatedDesc from './QuizCreatedDesc'
 import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
+
 const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
     let content = <h5 className="center"> You have not Created any Quiz yet!</h5>;
     if(quizezCreated.length>0)

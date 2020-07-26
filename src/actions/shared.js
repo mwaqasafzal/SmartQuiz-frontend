@@ -2,7 +2,9 @@ import {receiveAllQuizezTaken} from './quizezTaken'
 import {receiveAllQuizezCreated} from './quizezCreated'
 import * as API from '../utils/api'
 
-export const NET_ERR = "NETWORK_ERROR"
+
+export const FAILED="OPERATION_FAILED"
+export const ERR_DELT="ERROR_DELT"
 
 export const loadData = ()=>{//async action creator
     return dispatch=>{
@@ -17,8 +19,13 @@ export const loadData = ()=>{//async action creator
     
 }
 
-export const networkError = ()=>(
-    {
-        type:NET_ERR
-    }
-);
+//error will be object like this {type:'Network Error',message:'xyz'}
+
+export const failed = error=>({
+    type:FAILED,
+    error
+});
+
+export const errDelt=()=>({
+    type:ERR_DELT   
+})

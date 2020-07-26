@@ -2,12 +2,13 @@ import React,{useState} from 'react'
 import Quiz from './Quiz'
 import {getQuiz} from '../../utils/api'
 import {Container,Form,Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {startLoader,stopLoader} from './../../actions/loader'
+import {failed} from '../../actions/shared'
 
-
-const TakeQuiz = (props)=>{
+const TakeQuiz = ({dispatch})=>{
     const [key,setKey] = useState("");
     const [invalidKey,setInvalidKey] = useState(false);//for form validation
-    const [incorrectKey,setIncorrectKey] = useState(false);//is there any quiz with that key
     const [quiz,setQuiz] = useState("");
     
 
@@ -18,19 +19,23 @@ const TakeQuiz = (props)=>{
             setInvalidKey(false);
         setKey(value);
     }
+
     const startQuiz = e=>{
         e.preventDefault();
         const keyValue = key;
         setKey("");
         (async function(){
-            try {
-                const quiz = await getQuiz(keyValue);
-                setQuiz(quiz);
-                
-            } catch (error) {
-                setIncorrectKey(true);
-                setKey("");   
-            }
+            dispatch(startLoader());
+            const res = await getQuiz(keyValue);
+            dispatch(stopLoader());
+
+            if(res.status==='failed')
+                dispatch(failed(res.error));
+            else{
+                setQuiz(res.quiz);
+                setKey("");
+            }   
+            
         })();
     }
     let content = (
@@ -42,13 +47,12 @@ const TakeQuiz = (props)=>{
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label style={{fontSize:'1.3rem',fontWeight:'bold'}}>Quiz Key</Form.Label>
                         <Form.Control 
-                            className={invalidKey || incorrectKey?'invalid-input':null}
+                            className={invalidKey ?'invalid-input':null}
                             type = "text"
                             placeholder = "Enter the Key"
                             value = {key}
                             onChange = {e=>keyChangeHandler(e.target.value)}/>
                     </Form.Group>
-                    {incorrectKey && <label style={{color:'red',fontSize:'0.8rem'}}>*Key is Expired or does not exists</label>}
                     <Button  
                         type="submit"
                         className="custom-btn"
@@ -66,4 +70,6 @@ const TakeQuiz = (props)=>{
     return content;
 }
 
-export default TakeQuiz;
+
+
+export default connect()(TakeQuiz);

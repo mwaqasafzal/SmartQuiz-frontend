@@ -1,5 +1,6 @@
 import {removeQuiz as _removeQuiz} from '../utils/api'
 import {startLoader,stopLoader} from './loader'
+import {failed} from './shared'
 
 export const RECEIVE_ALL_QUIZEZ_CREATED = "RECEIVE_ALL_QUIZEZ_CREATED"
 export const CREATE_NEW_QUIZ = "CREATE_NEW_QUIZ"
@@ -25,9 +26,9 @@ export const removeQuizHandler=quizId=>{
                 dispatch(startLoader());
                 const removed = await _removeQuiz(quizId);
                 dispatch(stopLoader());
-                if(removed)
+                if(removed.status==='success')
                         dispatch(removeQuiz(quizId));
                 else
-                        console.log('something went wrong,cannot remove the quiz');
+                        dispatch(failed(removed.error))
         }
 }

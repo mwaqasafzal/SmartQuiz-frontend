@@ -22,7 +22,7 @@ const QuizCreatedDesc = ({quizNo,quizId,quizKey,name,createdAt,deadline,duration
             <td className="see-stats"><Link to={`${path}/${quizId}`}> see stats</Link></td>
             <td><button 
                     className="delete-quiz-btn"
-                    onClick={removeQuiz}>Remove</button></td>
+                    onClick={()=>removeQuiz(quizId)}>Remove</button></td>
         </tr>
     );
 
