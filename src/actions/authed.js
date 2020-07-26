@@ -1,5 +1,7 @@
 import {getSelf,logout} from '../utils/api'
-import {loadData} from './shared'
+import {loadData, failed} from './shared'
+import { startLoader, stopLoader } from './loader'
+import {ServerError} from '../Exceptions'
 
 export const AUTH_SUCCESS = "AUTH_SUCCESS"
 export const AUTH_FAILURE = "AUTH_FAILURE"
@@ -44,10 +46,17 @@ export const logoutHandler=()=>{
     return dispatch=>{
         (async()=>{
             try {
+                dispatch(startLoader());
                 await logout();
+                dispatch(stopLoader());
                 dispatch(logoutUser());
+
             } catch (error) {
-                //network error for sure
+                dispatch(stopLoader());
+                if(error instanceof ServerError)
+                    dispatch(failed(error.message));
+                else
+                    dispatch(failed(error.message));
             }
         })();
     }

@@ -6,7 +6,8 @@ import {AuthContext} from '../../context/AuthContext'
 import {connect} from 'react-redux'
 import {login} from './../../utils/api'
 import {auth} from '../../actions/authed'
-import {InvalidKeyError,NotFoundError} from '../../Exceptions'
+import {InvalidKeyError,NotFoundError, ServerError} from '../../Exceptions'
+import {failed} from '../../actions/shared'
 
 const Login=({dispatch})=>{
     
@@ -48,8 +49,10 @@ const Login=({dispatch})=>{
                 setIncorrect(true);
             else if(error instanceof NotFoundError)
                 setNotExist(true);
-            else
-                console.log('server error');
+            else if(error instanceof ServerError)
+                dispatch(failed(error.message));//this error requires special handling
+            else //network error
+                dispatch(failed(error.message));//this error requires special handling
         }
         finally{
             setLoggingIn(false);

@@ -26,15 +26,16 @@ const TakeQuiz = ({dispatch})=>{
         setKey("");
         (async function(){
             dispatch(startLoader());
-            const res = await getQuiz(keyValue);
-            dispatch(stopLoader());
-
-            if(res.status==='failed')
-                dispatch(failed(res.error));
-            else{
-                setQuiz(res.quiz);
+            try {
+                const quiz = await getQuiz(keyValue);
+                dispatch(stopLoader());
+                setQuiz(quiz);
                 setKey("");
-            }   
+            } catch (error) {
+                dispatch(stopLoader());
+                dispatch(failed(error.message));
+            }
+           
             
         })();
     }

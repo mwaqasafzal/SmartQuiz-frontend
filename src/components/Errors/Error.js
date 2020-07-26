@@ -2,12 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {errDelt} from '../../actions/shared'
 
-const Error=({type,message,dispatch})=>{
-    const display= type || message?'flex':'none';
+const Error=({error,dispatch})=>{
+    const display= error?'flex':'none';
     return(
         <div style={{display}} className="error-box">
             <div className="message">
-            <p>{type}: {message}</p>
+            <p>{error}</p>
                 <button 
                     onClick={()=>dispatch(errDelt())}
                 >OK</button>
@@ -20,8 +20,7 @@ const mapStateToProps=({error})=>{
     if(!error)
         return;
     return {
-        type:error.type || "",
-        message:error.message || ""
+        error
     }
 
 };

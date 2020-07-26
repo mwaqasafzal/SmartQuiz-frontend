@@ -26,7 +26,14 @@ export class UnAuthenticatedError extends Error{
         super(message);
     }
 }
+
 export class NetworkError extends Error{
+    constructor(message){
+        super(message);
+    }
+}
+
+export class NotAllowedError extends Error{
     constructor(message){
         super(message);
     }

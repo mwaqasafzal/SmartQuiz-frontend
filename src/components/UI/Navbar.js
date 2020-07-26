@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logoutHandler} from '../../actions/authed'
 const Navigationbar = ({dispatch})=>{   
-
+    
     return(
         <Navbar bg="navbar" expand="lg">
             <Navbar.Brand><Logo/></Navbar.Brand>

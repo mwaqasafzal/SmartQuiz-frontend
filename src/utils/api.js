@@ -1,10 +1,13 @@
 import {HOST} from './configs'
-import {DuplicateKeyError,ServerError,NotFoundError,InvalidKeyError} from '../Exceptions'
+import {
+    DuplicateKeyError,
+    ServerError,
+    NotFoundError,
+    InvalidKeyError,
+    NetworkError,
+    NotAllowedError} from '../Exceptions'
 
-const networkError = {
-    type:'Network Error',
-    message:"Kindly Check Your Network Connection and Try Again"
-};
+const networkError ="Kindly Check Your Network Connection and Try Again";
 
 export const getQuizezTaken=async ()=>{
     
@@ -20,8 +23,11 @@ export const getQuizezTaken=async ()=>{
         const formattedRes = await res.json();
          return formattedRes.data.quizzes;
     }
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        throw new ServerError("Something went wrong");
+        throw new NetworkError(networkError)
+
 }
 
 export const getQuizezCreated=async()=>{
@@ -36,8 +42,11 @@ export const getQuizezCreated=async()=>{
         const formattedRes = await res.json();
         return formattedRes.data.quizzes;
     }
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        throw new ServerError("Something went wrong");
+        throw new NetworkError(networkError)
+
 }
 
 export const getQuizTakers=async(quizId)=>{
@@ -48,8 +57,11 @@ export const getQuizTakers=async(quizId)=>{
         const formattedRes = await res.json();
         return formattedRes.data.attendees;
     }
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        throw new ServerError("Something went wrong");
+        throw new NetworkError(networkError)
+
 }
 
 export const createQuiz = async(quiz)=>{
@@ -67,8 +79,11 @@ export const createQuiz = async(quiz)=>{
         const formattedRes = await res.json();
         return formattedRes.data.quiz;//updated quiz
     }
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        throw new ServerError("Something went wrong");
+        throw new NetworkError(networkError);
+
    
 
    
@@ -84,12 +99,12 @@ export const takenQuiz = async(quizStats)=>{
         },
         credentials:'include'
     });
-
-    if(!res.ok)//means server errorr
-
-        throw new ServerError("Something went wrong");
- 
-     
+    if(res.ok)
+        return;
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
+    else
+        throw new NetworkError(networkError);
 }
 
 export const getQuiz = async(key)=>{
@@ -100,37 +115,16 @@ export const getQuiz = async(key)=>{
     
     if(res.ok){
         const formattedRes = await res.json();
-        return formattedRes.data;
+        return formattedRes.data.quiz;
     }
     else if(res.status===404)
-        return {
-            status:'failed',
-            error:{
-                type:'Not Found',
-                message:'Quiz not found'
-            }
-        };
+        throw new NotFoundError("Incorrect Key Entered")
     else if(res.status===403)
-        return {
-            status:'failed',
-            error:{
-                type: 'Not Allowed',
-                message:'Quiz Already Taken or Key Expired'
-            }
-        };
+        throw new NotAllowedError("Key Expired or Already Taken the Quiz");
     else if(res.status===500)
-        return{
-            status:'failed',
-            error:{
-                type:'Server Error',
-                message:'Something Went Wrong,Please Try Again Later'
-            }
-        }
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        return{
-            status:'failed',
-            error:networkError
-        }
+        throw new NetworkError(networkError)
 
 
 }
@@ -147,15 +141,16 @@ export const getSelf = async()=>{
     }
     else if(res.status===400)
         throw new NotFoundError("User Not Found");
-    else 
-        throw new ServerError("Something Went Wrong");
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
+    else
+        throw new NetworkError(networkError);
 
     
 }
 
 export const login = async({email,password})=>{//userId might be email or password
     const uri=`${HOST}/users/login`;
-    console.log(uri);
     const res = await fetch(uri,{
         method:'POST',
         body:JSON.stringify({
@@ -176,8 +171,10 @@ export const login = async({email,password})=>{//userId might be email or passwo
         throw new InvalidKeyError("Email or Password Incorrect");
     else if(res.status==404)
         throw new NotFoundError("User Not Found")
-    else 
-        throw new ServerError("Something Went Wrong")
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
+    else
+        throw new NetworkError(networkError);
 }
 
 export const signUp = async({username,fullName,email,password})=>{
@@ -200,8 +197,10 @@ export const signUp = async({username,fullName,email,password})=>{
     }
     else if(res.status===403)//duplicate key
         throw new DuplicateKeyError("Email Already Exists");
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
     else
-        throw new ServerError("Something Went Wrong")
+        throw new NetworkError(networkError);
       
 }
 
@@ -209,7 +208,12 @@ export const logout=async()=>{
     const res = await fetch(`${HOST}/users/logout`,{
         credentials:'include'
     });
-    console.log('logout res',res);
+    if(res.ok)
+        return;
+    else if(res.status===500)
+        throw new ServerError("Something Went Wrong,Please Try Again Later");
+    else
+        throw new NetworkError(networkError);
 }
 
 export const removeQuiz=async(quizId)=>{
@@ -221,23 +225,9 @@ export const removeQuiz=async(quizId)=>{
     if(res.ok)
         return {status:'success'};
     else if(res.status===404)
-        return {
-            status:'failed',
-            error:{
-                message:'Quiz Not Found'
-            }
-    }
+        throw new NotFoundError("Quiz Not Found");
     else if(res.status===500)
-        return {
-                status:'failed',
-                error:{
-                    type:'Server Error',
-                    message:"Something Went Wrong,can't remove quiz"
-                }
-            }
+        throw new ServerError("Something Went Wrong,Please Try Again Later")
     else
-        return {
-            status:'failed',
-            error:networkError
-        }
+        throw new NetworkError(networkError);
 }

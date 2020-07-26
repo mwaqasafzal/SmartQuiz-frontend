@@ -24,11 +24,13 @@ export const removeQuiz=quizId=>({
 export const removeQuizHandler=quizId=>{
         return async(dispatch)=>{
                 dispatch(startLoader());
-                const removed = await _removeQuiz(quizId);
-                dispatch(stopLoader());
-                if(removed.status==='success')
+                try {
+                        await _removeQuiz(quizId);
+                        dispatch(stopLoader());
                         dispatch(removeQuiz(quizId));
-                else
-                        dispatch(failed(removed.error))
+                } catch (error) {
+                        dispatch(stopLoader());
+                        dispatch(failed(error.message));
+                }          
         }
 }

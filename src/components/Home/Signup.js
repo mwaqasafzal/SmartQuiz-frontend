@@ -6,6 +6,8 @@ import {AuthContext} from './../../context/AuthContext'
 import {signUp} from '../../utils/api'
 import {auth} from './../../actions/authed'
 import {connect} from 'react-redux'
+import {failed} from '../../actions/shared'
+import {DuplicateKeyError,ServerError} from '../../Exceptions'
 
 const Signup=({dispatch})=>{
  
@@ -78,7 +80,12 @@ const Signup=({dispatch})=>{
                 
                 dispatch(auth());
             } catch (error) {
-                setEmailExists(true);
+                if(error instanceof DuplicateKeyError)
+                    setEmailExists(true);
+                else if(error instanceof ServerError)
+                    dispatch(failed(error.message));//this error requires special handling
+                else //network error
+                    dispatch(failed(error.message));//this error requires special handling
             }
             finally{
                 setSigningUp(false);
