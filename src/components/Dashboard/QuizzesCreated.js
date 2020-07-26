@@ -11,9 +11,10 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                     <tr>
                         <th>Sr.</th>
                         <th>Name</th>
+                        <th>Key</th>
                         <th>Created at</th>
                         <th>Deadline</th>
-                        <th>duration</th>
+                        <th>Duration</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                         <QuizCreatedDesc
                             quizNo={ind+1}
                             key = {quiz._id}
+                            quizKey = {quiz.key}
                             quizId = {quiz._id}
                             name = {quiz.name}
                             createdAt = {quiz.createdAt}
