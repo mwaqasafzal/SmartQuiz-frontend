@@ -14,6 +14,7 @@ import ServerError from './components/Errors/500'
 import {Route,Switch, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {auth} from './actions/authed'
+import Loader from './components/UI/Loader/FullScLoader'
 
 
 function App({authed,dispatch}) {
@@ -38,6 +39,7 @@ function App({authed,dispatch}) {
     content = (
       <React.Fragment>
         <Navbar/>
+        <Loader/>
         <Switch>
           <Route path="/" exact render={()=><Redirect to="/dashboard"/>}/>
           <Route path="/dashboard" exact component={Dashboard}/>

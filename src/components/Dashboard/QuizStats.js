@@ -2,12 +2,12 @@ import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {getQuizTakers} from '../../utils/api'
 import QuizAttendee from './QuizAttendee'
-import Loader from '../UI/Loader/Loader'
 import {connect} from 'react-redux'
 import {Container,Card,Table} from 'react-bootstrap'
 import {convertDate} from '../../utils/helpers'
+import {startLoader,stopLoader} from '../../actions/loader'
 
-const QuizStats = ({match,quiz})=>{
+const QuizStats = ({match,quiz,dispatch})=>{
     const path = match.url;//will be like /dashboard/quizez-created/<quiz-id>
     const quizId = match.params.quizId;
 
@@ -15,15 +15,17 @@ const QuizStats = ({match,quiz})=>{
 
     useEffect(()=>{
         (async function(){
+            dispatch(startLoader());
             const attendees = await getQuizTakers(quizId);
             setAttendees(attendees);
+            dispatch(stopLoader());
         })();
     },[])
-    let content;
+  
     if(!attendees)
-        content=<div className="custom-loader"><Loader/></div>;
-    else
-        content=(
+        return null;
+
+    return (
             <div className="quiz-stats">
                 <h2 className="title">{quiz.name}</h2>
                 <Container>
@@ -67,7 +69,7 @@ const QuizStats = ({match,quiz})=>{
                
             </div>
         );
-    return content;
+   
 }
 
 const mapStateToProps = ({quizezCreated},{match})=>{

@@ -180,3 +180,15 @@ export const logout=async()=>{
     });
     console.log('logout res',res);
 }
+
+export const removeQuiz=async(quizId)=>{
+    const res = await fetch(`${HOST}/quizzes/${quizId}`,{
+        method:'DELETE',
+        credentials:'include'
+    })
+
+    if(res.ok)
+        return true;
+    else 
+        return false;
+}

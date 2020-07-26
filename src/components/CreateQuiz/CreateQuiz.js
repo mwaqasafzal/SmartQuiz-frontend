@@ -142,6 +142,7 @@ const CreateQuiz = ({dispatch,history})=>{
             <div className="quiz-nature">
                 <h2 className="title">Nature of Quiz</h2>
                 <Container style={{maxWidth:"500px"}}fluid>
+                    <p style={{color:"#3b6978",fontSize:"0.7rem",textAlign:"center",fontStyle:"italic"}}>*ONCE QUIZ IS CREATED,IT CAN BE MODIFIED LATER</p>
                     <Form  onSubmit={createMeta}>
                         <Form.Group controlId="formBasicQuizName">
                             <Form.Label>Quiz Name</Form.Label>

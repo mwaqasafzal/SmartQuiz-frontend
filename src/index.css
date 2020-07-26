@@ -22,7 +22,7 @@ code {
 }
 
 .custom-loader{
-  background-color:rgba(0, 0, 0, 0.116);
+  background-color:rgba(0, 0, 0, 0.26);
   height:100vh;
   width:100vw;
   display:flex;
@@ -30,7 +30,7 @@ code {
   align-items:center;
   position:fixed;
   top:0;
-  z-index:20
+  z-index:50
 }
 header{
   height:80px;
@@ -462,5 +462,14 @@ header{
 }
 
 input{
+  outline:none !important;
+}
+
+.delete-quiz-btn{
+  background-color: transparent;
+  padding:4px;
+  color:red;
+  border:none;
+  font-size:12px;
   outline:none !important;
 }

@@ -15,6 +15,7 @@ const QuizCreated=({quizezCreated})=>{//path = /dashboard/quiz-created/
                         <th>Created at</th>
                         <th>Deadline</th>
                         <th>Duration</th>
+                        <th>Stats</th>
                         <th></th>
                     </tr>
                 </thead>
